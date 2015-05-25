@@ -1,0 +1,66 @@
+<?php
+Class Hotel extends Model
+{
+  function __construct($id='')
+  {
+		parent::__construct('hotel_ref','hotels','getdbh2');
+		$this->rs['hotel_ref']=0;
+		$this->rs['hotel_name']='';
+		$this->rs['hotel_name_url']='';
+		$this->rs['hotel_star']='';
+		$this->rs['hotel_address']='';
+		$this->rs['hotel_city']='';
+		$this->rs['hotel_city_url']='';
+		$this->rs['hotel_county']='';
+		$this->rs['hotel_country']='';
+		$this->rs['hotel_country_url']='';
+		$this->rs['country_iso']='';
+		$this->rs['hotel_pcode']='';
+		$this->rs['continent_name']='';
+		$this->rs['hotel_max_child_age']='';
+		$this->rs['hotel_description']='';
+		$this->rs['alternate_description']='';
+		$this->rs['hotel_directions']='';
+		$this->rs['alternate_directions']='';
+		$this->rs['hotel_link']='';
+		$this->rs['agoda_hotel_id']='';
+		$this->rs['agoda_hotel_name']='';
+		$this->rs['agoda_url']='';
+		$this->rs['check_in']='';
+		$this->rs['check_out']='';
+		$this->rs['conditions_of_booking']='';
+		$this->rs['privacy_policy']='';
+		$this->rs['terms_conditions']='';
+		$this->rs['disclaimer']='';
+		$this->rs['hotel_creation_date']='';
+		$this->rs['hotel_no_of_rooms']='';
+		$this->rs['image']='';
+		$this->rs['images']='';
+		$this->rs['geo_code_long']='';
+		$this->rs['geo_code_lat']='';
+		$this->rs['hotel_distance']='';
+		$this->rs['customer_rating']='';
+		$this->rs['prices_from']='';
+		$this->rs['max_price']='';
+		$this->rs['currency_code']='';
+		$this->rs['star_awarded_by']='';
+		$this->rs['star_accomodation_type']='';
+		$this->rs['rack_rate']='';
+		$this->rs['cancellation_type']='';
+		$this->rs['cancellation_policy']='';
+		$this->rs['cancellation_days']='';
+		$this->rs['cancellation_hours']='';
+		$this->rs['cancellation_terms']='';
+		$this->rs['hotel_important_information']='';
+		$this->rs['active']='';
+		$this->rs['done']='';
+		$this->rs['created_by_id']='';
+		$this->rs['created_date']='';
+		$this->rs['last_updated_by_id']='';
+		$this->rs['last_updated_date']='';
+
+  if ($id)
+    $this->retrieve($id);
+  }
+}
+?>

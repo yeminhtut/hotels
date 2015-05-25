@@ -1,0 +1,7 @@
+#wrap{width:960px;margin:0px auto;}
+.location{cursor: pointer;font-size: 18px;}
+.list-img-holder{float:left;width: 40%;}
+.list-hotel-info{float:left;width: 60%;}
+.clear{clear:both;}
+.thumb{width:300px;height:200px;}
+.list-box{border:2px solid #2fa9dd;margin-bottom:10px;padding:10px;}

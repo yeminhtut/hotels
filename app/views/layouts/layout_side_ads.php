@@ -1,0 +1,3 @@
+<div id="side_skin_left" style="position:absolute;top:110px;left:-240px;"><iframe src="http://tripzilla.sg/widgets/magazine_banner_side_skinwrap_left" height='620px' width='170px' frameBorder='0' scrolling='no'></iframe></div>
+<div id="side_skin_right" style="position:absolute;top:110px;right:-220px;"><iframe src="http://tripzilla.sg/widgets/magazine_banner_side_skinwrap_right" height='620px' width='170px' frameBorder='0' scrolling='no'></iframe></div>
+		
