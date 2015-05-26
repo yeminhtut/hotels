@@ -1,6 +1,6 @@
 <?php 
 function _index(){
-	echo 'property index page';
+	var_dump($_POST);
 }
 
 

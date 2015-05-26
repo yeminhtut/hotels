@@ -25,6 +25,12 @@ class Controller extends KISS_Controller {
       if(isset($p[2]) && $p[2]=='search'){
         $this->action = 'search';
       }
+      if(isset($p[2]) && $p[2]=='search_new'){
+        $this->action = 'search_new';
+      }
+      if(isset($p[2]) && $p[2]=='detail'){
+        $this->action = 'detail';
+      }
       
     }
     
@@ -43,6 +49,9 @@ class Controller extends KISS_Controller {
   		$this->action = 'index';
       if(isset($p[2]) && $p[2] !==''){
         $this->action = 'city';
+      }
+      if(isset($p[5]) && $p[5] !==''){
+        $this->action = 'country';
       }
   	}
     // Routing scraper

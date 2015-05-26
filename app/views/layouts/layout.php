@@ -12,6 +12,11 @@ $foot[]=getjAlert();
 <link rel="stylesheet" type="text/css" href="/hotels/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/hotels/css/main.css">
 <link rel="stylesheet" type="text/css" href="/hotels/css/site.css">
+<!--<link rel="stylesheet" type="text/css" href="/hotels/css/bootstrap-datepicker.min.css">-->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+<script type="text/javascript" src="<?=myUrl('/js/jquery.min.js')?>"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 <style type="text/css">
   @import "<?=myUrl('css/reset.css')?>";
   @import "<?=myUrl('css/text.css')?>";
@@ -19,7 +24,8 @@ $foot[]=getjAlert();
   @import "<?=myUrl('css/site.css')?>";*/
   @import "<?=myUrl('css/main.css')?>";
 </style>
-<script type="text/javascript" src="<?=myUrl('js/jquery.min.js')?>"></script>
+
+
 <?=(isset($head) && is_array($head)) ? implode("\n",$head) : ''?>
 </head>
 <body>
