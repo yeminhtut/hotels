@@ -3,8 +3,8 @@
 	function _detail($detail='',$hotel_id='',$hotel_slug='',$checkIn,$checkOut,$persons,$rooms){
 		$property = new Property();
 		$property->retrieve_one("zumata_property_id=?", $hotel_id);	
-		//var_dump($property);
-
+		
+		$content['property'] = $property;
 		$checkInArr = explode('-', $checkIn);
 		$check_in = $checkInArr[1].'/'.$checkInArr[0].'/'.$checkInArr[2];
 
@@ -24,26 +24,20 @@
 		$query['adults'] = $persons;
 		$query['currency'] = 'SGD';
 		$query['timeout'] = rand(1,20);
-		$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';	
-		//echo $request->getUrl();
+		$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';		
 		$response = $client->get($request->getUrl());
   		$result = $response->json(); 
-  		$rooms = $result['content']['hotels'][0]['rates']['packages'];
-  		// foreach ($rooms as $room) {
-  		// 	echo $room['key'];echo "<br/>";
-  		// }
-  		// exit;
-  		$hotel_detail = make_hotel_details_html($rooms);
-  		//echo $hotel_detail;
-
-  		$content['hotel_detail'] = $hotel_detail;		
+  		$rooms = $result['content']['hotels'][0]['rates']['packages'];  		
+  		$hotel_rooms = make_hotel_rooms_html($rooms);
+  		
+  		$content['hotel_rooms'] = $hotel_rooms;		
 		$data['pagename']= $location_slug;
 		  
 		$data['body'][]=View::do_fetch(VIEW_PATH.'property/detail.php',$content);
 		View::do_dump(VIEW_PATH.'layouts/layout.php',$data);
 	}
 
-function make_hotel_details_html($rooms){
+function make_hotel_rooms_html($rooms){
 	$html = '';
 	foreach ($rooms as $room) {
 		$room_type = $room['normalizedRoomDescription'];

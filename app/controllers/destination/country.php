@@ -1,5 +1,7 @@
 <?php
 use GuzzleHttp\Client; 
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Promise;
 function _country($location_id='',$location_slug='',$checkIn,$checkOut,$persons,$rooms,$offset=1){	
 
 	$checkInArr = explode('-', $checkIn);
@@ -8,10 +10,10 @@ function _country($location_id='',$location_slug='',$checkIn,$checkOut,$persons,
 	$checkOutArr = explode('-', $checkOut);
 	$check_out = $checkOutArr[1].'/'.$checkOutArr[0].'/'.$checkOutArr[2];
 
+
+
 	$location_id = trim(strip_tags($location_id));
 	$client = new Client(); 
-	$timeout = rand(1,20); 	
-
 	$request = $client->createRequest('GET', 'http://api.zumata.com/search');
 	$query = $request->getQuery();
 	$query['destination'] = $location_id;
@@ -21,20 +23,24 @@ function _country($location_id='',$location_slug='',$checkIn,$checkOut,$persons,
 	$query['rooms'] = $rooms;
 	$query['adults'] = $persons;
 	$query['currency'] = 'SGD';
-	$query['timeout'] = rand(1,20);
+	$query['timeout'] = rand(1,60);
 	$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';	
-	
-	$response = $client->get($request->getUrl());
-	$result = $response->json(); 
+	$response = $client->get($request->getUrl());	
+	$result = $response->json();
+	// $promises = [
+ //    'image' => $result['searchCompleted']
+	// ];
+	// $results = Promise\unwrap($promises);
+	var_dump($results);
+	var_dump($result['searchCompleted']);exit;
 	$room_arr = $result['content']['hotels'];		
-	$avaliable_room_list = make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms);
-		
-	$content['hotel_list'] = $avaliable_room_list;
-	
-	$data['pagename']= $location_slug;
-	  
+	$avaliable_room_list = make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms);	
+	$content['hotel_list'] = $avaliable_room_list;	
+	$data['pagename']= $location_slug;		  
 	$data['body'][]=View::do_fetch(VIEW_PATH.'destination/index.php',$content);
 	View::do_dump(VIEW_PATH.'layouts/layout.php',$data);
+	
+	
 }
 function make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms){
 		$html = '';
