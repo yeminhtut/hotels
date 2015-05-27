@@ -23,16 +23,21 @@ function _country($location_id='',$location_slug='',$checkIn,$checkOut,$persons,
 	$query['rooms'] = $rooms;
 	$query['adults'] = $persons;
 	$query['currency'] = 'SGD';
-	$query['timeout'] = rand(1,60);
-	$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';	
+	$query['timeout'] = 20;
+	$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
+	echo $request->getUrl();
 	$response = $client->get($request->getUrl());	
 	$result = $response->json();
-	// $promises = [
- //    'image' => $result['searchCompleted']
-	// ];
-	// $results = Promise\unwrap($promises);
-	var_dump($results);
-	var_dump($result['searchCompleted']);exit;
+	
+	if ($result['searchCompleted'] == false) {
+		echo 'try again';
+		$query['timeout'] = 30;
+		echo $request->getUrl();
+	}
+	else{
+		echo 'can go now';
+	}
+	exit;
 	$room_arr = $result['content']['hotels'];		
 	$avaliable_room_list = make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms);	
 	$content['hotel_list'] = $avaliable_room_list;	
