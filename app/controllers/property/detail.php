@@ -39,17 +39,19 @@
 
 function make_hotel_rooms_html($rooms){
 	$html = '';
+	$html .= '<ul>';
 	foreach ($rooms as $room) {
 		$room_type = $room['normalizedRoomDescription'];
 		$description = $room['roomDescription'];
-		$html .= '<div class="panel panel-primary">
+		$html .= '<li><div class="panel panel-info">
 	              <div class="panel-heading">
 	                <h3 class="panel-title">'.$room_type.'</h3>
 	              </div>
 	              <div class="panel-body">
 	                '.$description.'
 	              </div>
-	            </div>';
+	            </div></li>';
 	}
+	$html .= '</ul>';
 	return $html;
 }

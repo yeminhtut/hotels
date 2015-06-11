@@ -30,7 +30,7 @@
 					<option value="4">4 rooms</option>
 				</select>
 			</div>
-			<button type="submit" class="btn btn-default">Search</button>
+			<button type="submit" class="btn green-btn">Search</button>
 			</form>
 		</div>
 	</div>
@@ -44,8 +44,7 @@ $(document).ready(function() {
 	console.log(checkInStart);
 
 	$('#datepicker').datepicker({
-		startDate: checkInStart,	    
-	    calendarWeeks: true,
+		startDate: checkInStart,    	
 	    autoclose: true,	    
 	    datesDisabled: ['05/06/2015', '05/21/2015']
 	});
@@ -54,12 +53,30 @@ $(document).ready(function() {
      console.log(changedate);
 	});
 	$('#datepickerCheckout').datepicker({
-		startDate: "06/01/2015",
-	    todayBtn: true,
-	    calendarWeeks: true,
+		startDate: "06/01/2015",	    
 	    autoclose: true,
 	    todayHighlight: true,
 	    datesDisabled: ['05/06/2015', '05/21/2015']
 	});
 });
 </script>
+<style type="text/css">
+	.green-btn{
+		display: inline-block;
+		vertical-align: top;
+		width: 140px;
+		color: #fff;
+		font-size: 16px;
+		line-height: 18px;
+		font-weight: bold;
+		background: #1abc9c;
+		border-radius: 3px;
+		font-weight: 500;
+		border-bottom: 2px solid #16a085;
+		margin: 0 5px;
+	}
+	.green-btn:hover{
+		color:#FFF;
+		opacity: 0.8;
+	}
+</style>
