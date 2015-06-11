@@ -8,17 +8,14 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	// var items = $('.list');
-	// var numItems = $('.list').length;	
-	// if (numItems<1) {
+	// var searchComplete = $('.error').text();
+	// console.log(searchComplete);
+	// var i = 0;
+	// if (searchComplete == '') {
+	// 	var i = i+1;
 	// 	console.log('need to reload');
 	// 	setTimeout(function(){ window.location.reload();}, 1000)
 	// };
-	var searchComplete = $('.error').text();
-	console.log(searchComplete);
-	if (searchComplete == '') {
-		console.log('need to reload');
-		setTimeout(function(){ window.location.reload();}, 1000)
-	};	
+	
 })
 </script>

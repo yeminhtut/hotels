@@ -10,50 +10,33 @@ function _country($location_id='',$location_slug='',$checkIn,$checkOut,$persons,
 	$rooms = $rooms;
 	$persons = $persons;
 	$location_id = trim(strip_tags($location_id));
-	$client = new Client(); 
-	$request = $client->createRequest('GET', 'http://api.zumata.com/search');
-	$query = $request->getQuery();
-	$query['destination'] = $location_id;
-	$query['checkin'] = str_replace('%2F', '/', $check_in);
-	$query['checkout'] = str_replace('%2F', '/', $check_out);
-	$query['lang'] = 'en_US';
-	$query['rooms'] = $rooms;
-	$query['adults'] = $persons;
-	$query['currency'] = 'SGD';
-	$query['timeout'] = rand(10,30);
-	$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';	
-	//echo $request->getUrl();exit;
-	$request_url = $request->getUrl();
-	//$result['searchCompleted'] = false;
-	// for ($i=0; $i < 2; $i++) { 
-	// 	echo $i;echo "<br/>";
-	// 	$response = $client->get($request->getUrl());
-	// 	$result = $response->json();
-	// 	if ($result['searchCompleted'] == true) {
-	// 		echo 'success';
-	// 	}
-	// 	var_dump($result['searchCompleted']);echo "<hr/>";
+	
+	$complete = false;
+	$counter = 0;
+	while ( $complete == false && $counter < 50 ) {
+		$result = get_avaliable_hotels_result($location_id,$rooms,$persons,$check_in,$check_out);
+		sleep(1);
+		$complete = $result['searchCompleted'];
+		$counter = $counter + 1;
+		//echo $counter;echo "<br/>";
+		//var_dump($complete);echo "<br/>";
+	}
+
+	if ($complete == true) {
+	$room_arr = $result['content']['hotels'];		
+	$avaliable_room_list = make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms);
+	$content['search_complete'] = $counter;	
+	$content['hotel_list'] = $avaliable_room_list;	
+	$data['pagename']= $location_slug;		  
+	$data['body'][]=View::do_fetch(VIEW_PATH.'destination/index.php',$content);
+	View::do_dump(VIEW_PATH.'layouts/layout.php',$data);
+	}
 		
-	// }
-	// exit;
-	$response = $client->get($request->getUrl());	
-	sleep(5);
-	$result = $response->json();	
-	// if ($result['searchCompleted'] == false) {		
-	// 	$response = $client->get($request->getUrl());
-	// 	$result = $response->json();
-	// }
-	// else{
-		$room_arr = $result['content']['hotels'];		
-		$avaliable_room_list = make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms);
-		$content['search_complete'] = $result['searchCompleted'];	
-		$content['hotel_list'] = $avaliable_room_list;	
-		$data['pagename']= $location_slug;		  
-		$data['body'][]=View::do_fetch(VIEW_PATH.'destination/index.php',$content);
-		View::do_dump(VIEW_PATH.'layouts/layout.php',$data);
-	//}	
 }
-function get_avaliable_hotels_result($rooms,$persons){
+
+
+function get_avaliable_hotels_result($location_id,$rooms,$persons,$check_in,$check_out){
+
 	$client = new Client(); 
 	$request = $client->createRequest('GET', 'http://api.zumata.com/search');
 	$query = $request->getQuery();
@@ -64,7 +47,7 @@ function get_avaliable_hotels_result($rooms,$persons){
 	$query['rooms'] = $rooms;
 	$query['adults'] = $persons;
 	$query['currency'] = 'SGD';
-	$query['timeout'] = rand(10,30);
+	$query['timeout'] = rand(1,10);
 	$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';	
 	$response = $client->get($request->getUrl());
 	$result = $response->json();

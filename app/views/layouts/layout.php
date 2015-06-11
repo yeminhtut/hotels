@@ -19,10 +19,6 @@ $foot[]=getjAlert();
 <script type="text/javascript" src="<?=myUrl('/js/dateformat.js')?>"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 <style type="text/css">
-  @import "<?=myUrl('css/reset.css')?>";
-  @import "<?=myUrl('css/text.css')?>";
-  @import "<?=myUrl('css/bootstrap.css')?>";
-  @import "<?=myUrl('css/site.css')?>";*/
   @import "<?=myUrl('css/main.css')?>";
 </style>
 
