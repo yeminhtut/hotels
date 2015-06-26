@@ -1,6 +1,7 @@
 <?php
 use GuzzleHttp\Client; 
 function _country($location_id='',$location_slug='',$checkIn,$checkOut,$persons,$rooms,$offset=1){	
+
 	$checkInArr = explode('-', $checkIn);
 	$check_in = $checkInArr[1].'/'.$checkInArr[0].'/'.$checkInArr[2];
 
@@ -144,6 +145,7 @@ function make_hotel_thumb($image_arr){
 	$prefix = $image_arr[1];
 	$suffix = $image_arr[2];
 	$image_name = rand(1,$count);
+	$image_name = 1;
 	$src = $prefix.'/'.$image_name.$suffix;
 	return $src;
 }

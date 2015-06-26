@@ -18,8 +18,9 @@ $foot[]=getjAlert();
 <script type="text/javascript" src="<?=myUrl('/js/jquery.min.js')?>"></script>
 <script type="text/javascript" src="<?=myUrl('/js/dateformat.js')?>"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="http://magdev.tripzilla.com/ajax/js/jquery.backstretch.min.js"></script>
 <style type="text/css">
-  @import "<?=myUrl('css/main.css')?>";
+  @import "<?=myUrl('/css/main.css')?>";
 </style>
 
 
@@ -39,16 +40,9 @@ $foot[]=getjAlert();
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/hotels">logo</a>
-          </div>
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a class="nav-link current" href="">Home</a></li>
-              <li><a class="nav-link" href="">About</a></li>              
-            </ul>
-          </div>
+          </div>          
         </div>
-      </nav>
-     
+      </nav>     
     </div>
 
   <div class="container">
@@ -60,5 +54,10 @@ $foot[]=getjAlert();
   </div>
 
 <?=(isset($foot) && is_array($foot)) ? implode("\n",$foot) : ''?>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("body").backstretch("https://dl.dropboxusercontent.com/u/515046/www/garfield-interior.jpg");
+  })
+</script>
 </body>
 </html>

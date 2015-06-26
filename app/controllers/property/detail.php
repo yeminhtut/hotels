@@ -26,8 +26,9 @@
 		$query['timeout'] = rand(1,20);
 		$query['api_key'] = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';		
 		$response = $client->get($request->getUrl());
-  		$result = $response->json(); 
-  		$rooms = $result['content']['hotels'][0]['rates']['packages'];  		
+  		$result = $response->json();   		
+  		$rooms = $result['content']['hotels'][0]['rates']['packages'];  
+  		//var_dump($rooms);exit;		
   		$hotel_rooms = make_hotel_rooms_html($rooms);
   		
   		$content['hotel_rooms'] = $hotel_rooms;		
@@ -43,13 +44,14 @@ function make_hotel_rooms_html($rooms){
 	foreach ($rooms as $room) {
 		$room_type = $room['normalizedRoomDescription'];
 		$description = $room['roomDescription'];
+		$price = $room['roomRate'];
 		$html .= '<li><div class="panel panel-info">
 	              <div class="panel-heading">
 	                <h3 class="panel-title">'.$room_type.'</h3>
 	              </div>
 	              <div class="panel-body">
 	                '.$description.'
-	              </div>
+	              </div><div id="price">'.$price.'</div>
 	            </div></li>';
 	}
 	$html .= '</ul>';

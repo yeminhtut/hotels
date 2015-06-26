@@ -40,24 +40,32 @@
 $(document).ready(function() {
 	var now = new Date();
 	var d = new Date(new Date().getTime() + 48 * 60 * 60 * 1000);
-	var checkInStart = d.format("mm/dd/yyyy");
-	console.log(checkInStart);
+	var checkInStart = d.format("mm/dd/yyyy");	
 
 	$('#datepicker').datepicker({
 		startDate: checkInStart,    	
 	    autoclose: true,	    
-	    datesDisabled: ['05/06/2015', '05/21/2015']
+	    
 	});
 	$('#datepicker').change(function(){
-     var changedate = $('#datepicker').val();
-     console.log(changedate);
+    var changedate = $('#datepicker').val();
+    console.log(changedate);
+    var myDate = new Date(changedate);	
+    var checkout = myDate.setDate(myDate.getDate() + 2);
+    var time = 1435334400000;
+	var date = new Date(checkout);
+	var t = date.toString("MMMM yyyy");
+	var newdate = new Date(t);
+	var can = (newdate.getMonth() + 1) + '/' + newdate.getDate() + '/' +  newdate.getFullYear();
+	console.log(can); // Wed Jan 12 2011 12:42:46 GMT-0800 (PST)
+    //console.log(checkout);
+	    $('#datepickerCheckout').datepicker({
+			startDate: can,	    
+		    autoclose: true,
+		    
+		});
 	});
-	$('#datepickerCheckout').datepicker({
-		startDate: "06/01/2015",	    
-	    autoclose: true,
-	    todayHighlight: true,
-	    datesDisabled: ['05/06/2015', '05/21/2015']
-	});
+	
 });
 </script>
 <style type="text/css">
