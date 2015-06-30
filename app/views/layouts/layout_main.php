@@ -44,10 +44,12 @@ $foot[]=getjAlert();
         </div>
       </nav>     
     </div>
-
-  <div class="container">
+  <div id="main-search-wrapper">
+    <div class="container">
       <?=(isset($body) && is_array($body)) ? implode("\n",$body) : ''?>
+    </div>
   </div>
+  
 
   <div id="footer">
     
@@ -56,8 +58,11 @@ $foot[]=getjAlert();
 <?=(isset($foot) && is_array($foot)) ? implode("\n",$foot) : ''?>
 <script type="text/javascript">
   $(document).ready(function(){
-    //$("body").backstretch("https://dl.dropboxusercontent.com/u/515046/www/garfield-interior.jpg");
+    $("#main-search-wrapper").backstretch("http://localhost/hotels/web/img/slide_hero.jpg");
   })
 </script>
+<style type="text/css">
+  #main-search-wrapper{min-height: 480px;}
+</style>
 </body>
 </html>

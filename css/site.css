@@ -354,13 +354,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-weight: normal;
 }
 .topic .topic__infos {
-      /* position: absolute; */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
       bottom: 50%;
       padding-bottom: 15px;
       padding-top: 14px;
       width: 100%;
       margin: 0px auto;
-      border: 1px solid #a4e4ef !important;
+      /*border: 1px solid #1abc9c !important;*/
+      background: #FFF;
 }
 .topic .container {
     position: relative;
@@ -880,3 +881,32 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .site-footer .download .btn-primary {
     color: #fff;
 }
+
+    .green-btn{
+        display: inline-block;
+        vertical-align: top;
+        width: 140px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: bold;
+        background: #1abc9c;
+        border-radius: 3px;
+        font-weight: 500;
+        border-bottom: 2px solid #16a085;
+        margin: 0 5px;
+    }
+    .green-btn:hover{
+        color:#FFF;
+        opacity: 0.8;
+    }
+    .datepicker.dropdown-menu{
+        background-color: #fd9883;
+        color:#FFF;
+    }
+    .datepicker table tr td.old, .datepicker table tr td.new,.datepicker table tr td.disabled{color:#e9573f;}
+    .datepicker thead tr:first-child th:hover, .datepicker tfoot tr th:hover{background-color: #FFF;color:#e9573f;}
+    .datepicker table tr td.day:hover, .datepicker table tr td.day.focused{background-color: #FFF;color:#e9573f;padding: 5px;}
+    .form-control{border-radius: 0px;border: 1px solid #aab2bd;}
+
+

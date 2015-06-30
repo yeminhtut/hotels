@@ -39,7 +39,7 @@
 <script>
 $(document).ready(function() {
 	var now = new Date();
-	var d = new Date(new Date().getTime() + 48 * 60 * 60 * 1000);
+	var d = new Date(new Date().getTime() + 72 * 60 * 60 * 1000);
 	var checkInStart = d.format("mm/dd/yyyy");	
 
 	$('#datepicker').datepicker({
@@ -51,7 +51,7 @@ $(document).ready(function() {
     var changedate = $('#datepicker').val();
     console.log(changedate);
     var myDate = new Date(changedate);	
-    var checkout = myDate.setDate(myDate.getDate() + 2);
+    var checkout = myDate.setDate(myDate.getDate() + 1);
     var time = 1435334400000;
 	var date = new Date(checkout);
 	var t = date.toString("MMMM yyyy");
@@ -68,23 +68,3 @@ $(document).ready(function() {
 	
 });
 </script>
-<style type="text/css">
-	.green-btn{
-		display: inline-block;
-		vertical-align: top;
-		width: 140px;
-		color: #fff;
-		font-size: 16px;
-		line-height: 18px;
-		font-weight: bold;
-		background: #1abc9c;
-		border-radius: 3px;
-		font-weight: 500;
-		border-bottom: 2px solid #16a085;
-		margin: 0 5px;
-	}
-	.green-btn:hover{
-		color:#FFF;
-		opacity: 0.8;
-	}
-</style>
