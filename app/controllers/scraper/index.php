@@ -1,7 +1,7 @@
 <?php 
 	use GuzzleHttp\Client;
 	function _index() {
-
+		echo 'index';exit;
 		// $client = new Client();
 		// $response = $client->get('http://api.zumata.com/autosuggest/malaysia?api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P');
 		// $result = $response->json();
@@ -16,21 +16,25 @@
 		// }
 		// exit;
 		$client = new Client();
-		$response = $client->get('http://data.zumata.com/destinations/aa257c52-7d08-42f9-736b-84129ffb74ef/en_US/long.json');
+		$response = $client->get('http://data.zumata.com/destinations/659197a6-62c1-4636-768b-3fcb2ebc0ecf/en_US/long.json');
 		$result = $response->json();
-		$location_id = 'aa257c52-7d08-42f9-736b-84129ffb74ef';
+		$location_id = '659197a6-62c1-4636-768b-3fcb2ebc0ecf';
 		foreach ($result as $k => $v) {
 			$address = $result[$k]['address'];
 			$zumata_id = $result[$k]['id'];
 		  	$location_id = $location_id;
 		  	$lat = $result[$k]['latitude'];
 		  	$lng = $result[$k]['longitude'];
+		  	$description = $result[$k]['description'];
+		  	//echo $description;exit;
 		  	$status = 0;		  	
 	        $result_id = check_existing($zumata_id,$location_id);
 	        echo $result_id;echo "<br>";
 	        if ($result) {
 	        	$dbh = getdbh();
-	        	$statement = "UPDATE `t_property` SET `status`= '$status',`lat`= '$lat',`lng`=$lng,`updated_dt`= NOW() WHERE property_id = '$result_id'";	
+	        	//$statement = "UPDATE `t_property` SET `status`= '$status',`description`= '$description',`lat`= '$lat',`lng`=$lng,`updated_dt`= NOW() WHERE property_id = '$result_id'";	
+	        	$statement = "UPDATE `hotels`.`t_property` SET `description` = '$description' WHERE `t_property`.`property_id` = '$result_id'";
+	        	//echo $statement;exit;
 	        	$sql = $dbh->prepare($statement);
 				$sql->execute();			
 	        }

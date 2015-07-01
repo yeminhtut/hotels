@@ -18,6 +18,8 @@ class Property extends Model {
     $this->rs['city']='';
     $this->rs['description']='';
     $this->rs['image_details']='';
+    $this->rs['lat']='';
+    $this->rs['lng']='';
     $this->rs['created_dt']='0000-00-00 00:00:00'; 
     $this->rs['last_updated_date'] = '0000-00-00 00:00:00';
 

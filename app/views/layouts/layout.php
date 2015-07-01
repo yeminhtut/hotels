@@ -13,13 +13,16 @@ $foot[]=getjAlert();
 <link rel="stylesheet" type="text/css" href="/hotels/css/main.css">
 <link rel="stylesheet" type="text/css" href="/hotels/css/site.css">
 <!--<link rel="stylesheet" type="text/css" href="/hotels/css/bootstrap-datepicker.min.css">-->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" /> -->
 <script type="text/javascript" src="<?=myUrl('/js/jquery.min.js')?>"></script>
 <script type="text/javascript" src="<?=myUrl('/js/dateformat.js')?>"></script>
+<script type="text/javascript" src="<?=myUrl('/js/jquery-tabset.min.js')?>"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="http://magdev.tripzilla.com/ajax/js/jquery.backstretch.min.js"></script>
 <style type="text/css">
+  @import "<?=myUrl('/css/datepicker3.min.css')?>";
+  /*@import "<?=myUrl('/css/skeleton.css')?>";*/
+  @import "<?=myUrl('/css/tab-style.css')?>";
   @import "<?=myUrl('/css/main.css')?>";
 </style>
 

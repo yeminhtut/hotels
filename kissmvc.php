@@ -12,7 +12,7 @@ class Controller extends KISS_Controller
     {
         $this->params = array();
         $p            = $this->request_uri_parts;
-        
+        //var_dump($p);
         if (isset($p[0]) && $p[0] && $p[0][0] != '?')
             $this->controller = $p[0];
         if (isset($p[1]) && $p[1] && $p[1][0] != '?')
@@ -43,7 +43,15 @@ class Controller extends KISS_Controller
                 $this->action = 'search_hotels';
             }
         }
-        
+
+        //Routing scraper
+        if (isset($p[1]) && $p[1] == 'scraper') {
+            $this->controller = 'scraper';            
+            if (isset($p[2]) && $p[2] == 'scraper_kl') {
+                $this->action = 'scraper_kl';
+            }
+            $this->action     = 'index';
+        }
         // Routing destination page
         if (isset($p[1]) && $p[1] == 'destination') {
             $this->controller = 'destination';

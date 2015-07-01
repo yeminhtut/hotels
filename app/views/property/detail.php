@@ -10,8 +10,19 @@
 	</div>
 	
 </div>
+
 <div class="row">
-	<?= $hotel_rooms ?>
+	 <div class='tabs tabs_default'>
+              <ul class='horizontal'>
+                <li><a href="#tab-1">Rooms</a></li>
+                <li><a href="#tab-2">Details</a></li>
+                <li><a href="#tab-3">Map</a></li>
+              </ul>
+              <div id='tab-1'><span><?= $hotel_rooms ?></span></div>
+              <div id='tab-2'>
+              </div>
+              <div id='tab-3'><div id="map-canvas"></div></div>
+            </div>	
 </div>
 <style type="text/css">
 #property_facts_wrapper{
@@ -31,4 +42,39 @@
 .clear{
 	clear:both;
 }
+.room-name,.room-des,.room-price,.room-book{width:25%;}
+.room-title,.room-des{color:#4b4b4c;}
+.book{margin-top: 30px;}
+.tab-cls{padding:10px;}
+#map-canvas {
+        height: 400px;
+        margin: 0px;
+        padding: 0px
+      }
 </style>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tabs').tabslet();
+})
+</script>
+
+    <script>
+function initialize() {
+  var myLatlng = new google.maps.LatLng(5.41747,100.34026);
+  var mapOptions = {
+    zoom: 12,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'Hello World!'
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>

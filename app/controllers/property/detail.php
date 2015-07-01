@@ -7,6 +7,7 @@ function _detail($detail = '', $hotel_id = '', $hotel_slug = '', $checkIn, $chec
     $property->retrieve_one("zumata_property_id=?", $hotel_id);
     
     $content['property'] = $property;
+    //var_dump($content['property']);exit;
     
     $checkInArr = explode('-', $checkIn);
     $check_in   = $checkInArr[1] . '/' . $checkInArr[0] . '/' . $checkInArr[2];
@@ -45,20 +46,21 @@ function _detail($detail = '', $hotel_id = '', $hotel_slug = '', $checkIn, $chec
 function make_hotel_rooms_html($rooms)
 {
     $html = '';
-    $html .= '<ul>';
+    
     foreach ($rooms as $room) {
         $room_type   = $room['normalizedRoomDescription'];
         $description = $room['roomDescription'];
         $price       = $room['roomRate'];
-        $html .= '<li><div class="panel panel-info">
-	              <div class="panel-heading">
-	                <h3 class="panel-title">' . $room_type . '</h3>
-	              </div>
-	              <div class="panel-body">
-	                ' . $description . '
-	              </div><div id="price">' . $price . '</div>
-	            </div></li>';
-    }
-    $html .= '</ul>';
+        $html .= '<div class="hotel-row"><div class="room-name left">                  
+                    <h3 class="room-title">'.$room_type.'</h3>                
+                    </div>
+                    <div class="room-des left"><h3 class="link-title">' . $description . '</h3></a></div>
+                    <div class="room-price left">                  
+                    <h3>'.$price.'</h3>                
+                    </div>
+                    <div class="room-book left">
+                    <button type="submit" class="btn green-btn book">Book</button>
+                    </div><div class="clear"></div></div>';
+    }    
     return $html;
 }
