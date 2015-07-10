@@ -29,11 +29,10 @@ function _detail($detail = '', $hotel_id = '', $hotel_slug = '', $checkIn, $chec
     $query['currency'] = 'SGD';
     $query['timeout']  = rand(1, 20);
     $query['api_key']  = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    echo $request->getUrl();exit;
+    //echo $request->getUrl();exit;
     $response = $client->get($request->getUrl());
     $result   = $response->json();
-    $rooms    = $result['content']['hotels'][0]['rates']['packages'];
-    
+    $rooms    = $result['content']['hotels'][0]['rates']['packages'];    
     $hotel_rooms = make_hotel_rooms_html($rooms);
     
     $content['hotel_rooms'] = $hotel_rooms;
@@ -54,13 +53,17 @@ function make_hotel_rooms_html($rooms)
         $html .= '<div class="hotel-row"><div class="room-name left">                  
                     <h3 class="room-title">'.$room_type.'</h3>                
                     </div>
-                    <div class="room-des left"><h3 class="link-title">' . $description . '</h3></a></div>
+                    <div class="room-des left"><h3 class="link-title" style="font-size:16px;">' . $description . '</h3></a></div>
                     <div class="room-price left">                  
-                    <h3>'.$price.'</h3>                
+                    <h3>SGD '.$price.'</h3>                
                     </div>
                     <div class="room-book left">
                     <button type="submit" class="btn green-btn book">Book</button>
                     </div><div class="clear"></div></div>';
     }    
     return $html;
+}
+
+function get_hotel($hotel_id){
+
 }

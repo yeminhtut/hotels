@@ -70,10 +70,16 @@ class Controller extends KISS_Controller
             
         }
         
+        //Routing about
         if (isset($p[1]) && $p[1] == 'about') {
             $this->controller = 'about';
-            $this->action     = 'index';
-            
+            $this->action     = 'index';            
+        }
+
+        //Routing contact
+        if (isset($p[1]) && $p[1] == 'contact') {
+            $this->controller = 'contact';
+            $this->action     = 'index';            
         }
         
         if (isset($p[0]) && $p[0] == 'directory') {

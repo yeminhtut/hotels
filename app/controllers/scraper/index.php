@@ -94,7 +94,7 @@ function scrap_to_table($data, $location_id)
     $status        = 1;
     
     $location_id = $location_id;
-    $statement   = "INSERT INTO `t_property_new`( `zumata_property_id`, `property_name`, `address`, `location_id`,`description`,`image_details`,`lat`,`lng`,`rating`,`phone`,`email`,`website`,`created_dt`, `updated_dt`) 
+    $statement   = "INSERT INTO `t_property`( `zumata_property_id`, `property_name`, `address`, `location_id`,`description`,`image_details`,`lat`,`lng`,`rating`,`phone`,`email`,`website`,`created_dt`, `updated_dt`) 
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW(),NOW())";
     
     $sql = $dbh->prepare($statement);
@@ -115,7 +115,7 @@ function scrap_to_table($data, $location_id)
 function check_existing($zumata_id, $location_id)
 {
     $dbh       = getdbh();
-    $statement = "SELECT property_id  FROM `t_property_new` WHERE `zumata_property_id` LIKE ? LIMIT 1";
+    $statement = "SELECT property_id  FROM `t_property` WHERE `zumata_property_id` LIKE ? LIMIT 1";
     $sql       = $dbh->prepare($statement);
     $sql->execute(array(
         $zumata_id

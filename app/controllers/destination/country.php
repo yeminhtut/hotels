@@ -15,22 +15,26 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     
     $complete = false;
     $counter  = 0;
-    // while ( $complete == false && $counter < 50 ) {
-    //  $result = get_avaliable_hotels_result($location_id,$rooms,$persons,$check_in,$check_out);
+    //while ( $complete == false && $counter < 50 ) {
+    //$result = get_avaliable_hotels_result($location_id,$rooms,$persons,$check_in,$check_out);
+   
     //  sleep(1);
     //  $complete = $result['searchCompleted'];
     //  $counter = $counter + 1;
     // }
     
-    // if ($complete == true) {
-    // $room_arr = $result['content']['hotels'];        
+    //if ($complete == true) {
+    //$room_arr = $result['content']['hotels']; 
+    
     // $avaliable_room_list = make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms);
+    
     // $content['search_complete'] = $counter;  
     // $content['hotel_list'] = $avaliable_room_list;   
     // $data['pagename']= $location_slug;         
     // $data['body'][]=View::do_fetch(VIEW_PATH.'destination/index.php',$content);
     // View::do_dump(VIEW_PATH.'layouts/layout.php',$data);
-    // }
+    //}
+    // exit;
     $repeat_calls = ',
       complete: function() {
         if (time < 30001) {
@@ -38,7 +42,7 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
           //setTimeout(load_select, 5000);
           time = time + 5000;
         }else if (time > 30001){
-        $("#fetch-note").html("<p><center style=\"font-weight:bold;\">Sorry, no available flights found.. change search criteria...</center></p>");
+        $("#fetch-note").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
         }
       }';
     
@@ -59,16 +63,18 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
                 data: {destination:destination, checkin:checkin,checkout:checkout,persons:persons,rooms:rooms},
                 success: function(data) {
                     if (data.length > 4) {
-                        $(".hotel-list").html(data);
+                        $("#avaliable-list").html(data);
                     }                 
                 },
                 complete: function() {
-                    if (time < 10001) {
+                    var status = $("#status").html();
+                    if (time < 10001 && status !== 1) {
+                        console.log(status);
                         console.log(time);
                         setTimeout(load_select, 5000);
                         time = time + 5000;
-                    } else if (time > 30001) {
-                        $("#fetch-note").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
+                    } else if (time > 10001 && status !== 1) {
+                        //$("#avaliable-list").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
                     }
                 }
             });
@@ -96,6 +102,7 @@ function get_avaliable_hotels_result($location_id, $rooms, $persons, $check_in, 
     $query['currency']    = 'SGD';
     $query['timeout']     = rand(1, 10);
     $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
+    //return $request->getUrl();
     $response             = $client->get($request->getUrl());
     $result               = $response->json();
     return $result;
@@ -111,10 +118,12 @@ function make_avaliable_room_html($room_arr, $checkIn, $checkOut, $persons, $roo
         $html .= $hotel_detail;
     }
     return $html;
+
 }
 
 function get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $persons, $rooms)
 {
+    
     $result = get_room_detail_with_id($hotel_id);
     $html   = '';
     foreach ($result as $result) {
@@ -125,7 +134,7 @@ function get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $
         $thumbnail = make_hotel_thumb($result['image_details']);
         
         $html .= '<li class="hotel-row"><div class="hotel-thumbnail left">                  
-                    <img width="150" height="150" src="' . $thumbnail . '">                 
+                    <img width="180" height="120" src="' . $thumbnail . '" class="thumb">                 
                     </div>
                     <div class="hotel-name left"><h3 class="link-title">' . $name . '</h3></a></div>
                     <div class="hotel-price left">
@@ -148,12 +157,16 @@ function get_room_detail_with_id($hotel_id)
 
 function make_hotel_thumb($image_arr)
 {
-    $image_arr  = explode(',', $image_arr);
-    $count      = $image_arr[0];
-    $prefix     = $image_arr[1];
-    $suffix     = $image_arr[2];
+    $image_arr = unserialize($image_arr);    
+    $count      = $image_arr['count'];    
+    $prefix     = $image_arr['prefix'];
+    $suffix     = $image_arr['suffix'];
     $image_name = rand(1, $count);
     $image_name = 1;
     $src        = $prefix . '/' . $image_name . $suffix;
+    // list($width, $height, $type, $attr) = @getimagesize($src);
+    // if (empty($width)) {
+    //     $src = myUrl('/web/img/default.png');        
+    // }
     return $src;
 }

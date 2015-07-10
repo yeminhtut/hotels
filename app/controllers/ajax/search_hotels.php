@@ -30,18 +30,21 @@ function _search_hotels()
         echo 'null';
         exit;
     }
-    echo $avaliable_room_list;
+    $overhead = '<div style="display: none;" id="status">1</div>';
+    echo $avaliable_room_list.$overhead;
 }
 
 function make_avaliable_room_html($room_arr, $checkIn, $checkOut, $persons, $rooms)
 {
     $html = '';
+    $html  .= '<ul class="hotel-list">';
     foreach ($room_arr as $hotel) {
         $hotel_id       = $hotel['id'];
         $cheapest_price = $hotel['rates']['packages'][0]['roomRate'];
-        $hotel_detail   = get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $persons, $rooms);
+        $hotel_detail   = get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $persons, $rooms);    
         $html .= $hotel_detail;
     }
+    $html  .= '</ul>';
     return $html;
 }
 
@@ -49,6 +52,7 @@ function get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $
 {
     $result = get_room_detail_with_id($hotel_id);
     $html   = '';
+    
     foreach ($result as $result) {
         $name      = $result['property_name'];
         $slug      = strtolower(str_replace(' ', '-', $name));
@@ -56,13 +60,14 @@ function get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $
         $address   = $result['address'];
         $thumbnail = make_hotel_thumb($result['image_details']);
         $html .= '<li class="hotel-row"><div class="hotel-thumbnail left">                    
-                    <img width="150" height="150" src="' . $thumbnail . '">                    
+                    <img width="180" height="120" src="' . $thumbnail . '" onerror="imgError(this);">                    
                     </div>
-                    <div class="hotel-name left"><h3 class="link-title">' . $name . '</h3></a></div>
+                    <div class="hotel-name left"><h3 class="link-title">' . $name . '</h3><p><span class="hotel_address">'.$address.'</span></p></div>
                     <div class="hotel-price left">
                         <a href="/hotels/property/detail/' . $hotel_id . '/' . $slug . '/' . $checkIn . '/' . $checkOut . '/' . $rooms . '/' . $persons . '" target="_blank"><button type="submit" class="btn green-btn detail">Details</button></a>
                     </div><div class="clear"></div></li>';
     }
+   
     return $html;
 }
 
@@ -78,12 +83,16 @@ function get_room_detail_with_id($hotel_id)
 
 function make_hotel_thumb($image_arr)
 {
-    $image_arr  = explode(',', $image_arr);
-    $count      = $image_arr[0];
-    $prefix     = $image_arr[1];
-    $suffix     = $image_arr[2];
+    $image_arr = unserialize($image_arr);    
+    $count      = $image_arr['count'];    
+    $prefix     = $image_arr['prefix'];
+    $suffix     = $image_arr['suffix'];
     $image_name = rand(1, $count);
     $image_name = 1;
     $src        = $prefix . '/' . $image_name . $suffix;
+    // list($width, $height, $type, $attr) = @getimagesize($src);
+    // if (empty($width)) {
+    //     $src = myUrl('/web/img/default.png');        
+    // }
     return $src;
 }

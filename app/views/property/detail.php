@@ -1,33 +1,34 @@
 <div class="row" style="margin-top:50px;margin-bottom:50px;">
-	<div id="property_facts_wrapper">
-		<div id="property_img">
-			<img src="https://s3-ap-southeast-1.amazonaws.com/zumata/assets/hotels/2.0/ee1029c1-ad51-4c77-7410-35a908c8632a/images/25.jpg">
-		</div>
-		<div id="property_facts">
-			<?php echo "<p>".$property->address."</p>";?>
-		</div>
-		<div class="clear"></div>
-	</div>
-	
-</div>
+  <div id="property_facts_wrapper">
+  <div id="property_img">
+  <img src="https://s3-ap-southeast-1.amazonaws.com/zumata/assets/hotels/2.0/ee1029c1-ad51-4c77-7410-35a908c8632a/images/25.jpg">
+  </div>
+  <div id="property_facts">
+  <?php echo "<p>".$property->address."</p>";?>
+
+  <div class="clear"></div>
+  </div>
+
+  </div>
 
 <div class="row">
-	 <div class='tabs tabs_default'>
-              <ul class='horizontal'>
-                <li><a href="#tab-1">Rooms</a></li>
-                <li><a href="#tab-2">Details</a></li>
-                <li><a href="#tab-3">Map</a></li>
-              </ul>
-              <div id='tab-1'><span><?= $hotel_rooms ?></span></div>
-              <div id='tab-2'>
-              </div>
-              <div id='tab-3'><div id="map-canvas"></div></div>
-            </div>	
+  <div class='tabs tabs_default'>
+    <ul class='horizontal'>
+      <li><a href="#tab-1">Rooms</a></li>
+      <li><a href="#tab-2">Details</a></li>                
+    </ul>
+    <div id='tab-1' class="tab-cls"><span><?= $hotel_rooms ?></span></div>
+    <div id='tab-2' class="tab-cls">
+      <?= $property->description; ?>
+    </div>
+  </div>
+</div>	
 </div>
 <style type="text/css">
+.room-book{max-height: 100px;}
 #property_facts_wrapper{
 	background:#FFF;
-	height:400px;
+	padding:10px;
 	width:100%;
 }
 #property_img{
@@ -38,7 +39,7 @@
 	width:50%;
 	float:left;
 }
-#property_img img{height:400px;}
+#property_img img{height:200px;}
 .clear{
 	clear:both;
 }
@@ -71,7 +72,7 @@ function initialize() {
   var marker = new google.maps.Marker({
       position: myLatlng,
       map: map,
-      title: 'Hello World!'
+      title: ''
   });
 }
 
