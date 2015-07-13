@@ -32,6 +32,12 @@ class Controller extends KISS_Controller
             if (isset($p[2]) && $p[2] == 'detail') {
                 $this->action = 'detail';
             }
+            if (isset($p[2]) && $p[2] == 'booking') {
+                $this->action = 'booking';
+            }
+            if (isset($p[2]) && $p[2] == 'booking_result') {
+                $this->action = 'booking_result';
+            }
             
         }
         

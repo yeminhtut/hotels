@@ -1,58 +1,24 @@
-<div class="row" style="margin-top:50px;margin-bottom:50px;">
+<div  style="margin-top:50px;margin-bottom:50px;">
   <div id="property_facts_wrapper">
-  <div id="property_img">
-  <img src="https://s3-ap-southeast-1.amazonaws.com/zumata/assets/hotels/2.0/ee1029c1-ad51-4c77-7410-35a908c8632a/images/25.jpg">
-  </div>
-  <div id="property_facts">
-  <?php echo "<p>".$property->address."</p>";?>
-
-  <div class="clear"></div>
-  </div>
-
-  </div>
-
-<div class="row">
-  <div class='tabs tabs_default'>
-    <ul class='horizontal'>
-      <li><a href="#tab-1">Rooms</a></li>
-      <li><a href="#tab-2">Details</a></li>                
-    </ul>
-    <div id='tab-1' class="tab-cls"><span><?= $hotel_rooms ?></span></div>
-    <div id='tab-2' class="tab-cls">
-      <?= $property->description; ?>
+    <div id="property_img" class="col-md-6">
+      <img src="https://s3-ap-southeast-1.amazonaws.com/zumata/assets/hotels/2.0/ee1029c1-ad51-4c77-7410-35a908c8632a/images/25.jpg">
     </div>
+    <div id="property_facts" class="col-md-6"> 
+    <h1><?php echo $property->property_name; ?></h1>     
+      <?php echo "<p>".$property->address."</p>";?>
+
   </div>
+      <div class="clear"></div>
+</div>
+
+</div>
+
+<div  id="hotel_rooms">
+   <div class="col-md-4" id="room_des"><?= $amenity ?></div>
+   <div class="col-md-8" id="room_list"><?= $hotel_rooms ?></div>
+   <div class="clear"></div>
 </div>	
 </div>
-<style type="text/css">
-.room-book{max-height: 100px;}
-#property_facts_wrapper{
-	background:#FFF;
-	padding:10px;
-	width:100%;
-}
-#property_img{
-	width: 50%;
-	float:left;
-}
-#property_facts{
-	width:50%;
-	float:left;
-}
-#property_img img{height:200px;}
-.clear{
-	clear:both;
-}
-.room-name,.room-des,.room-price,.room-book{width:25%;}
-.room-title,.room-des{color:#4b4b4c;}
-.book{margin-top: 30px;}
-.tab-cls{padding:10px;}
-#map-canvas {
-        height: 400px;
-        margin: 0px;
-        padding: 0px
-      }
-</style>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -60,7 +26,7 @@ $(document).ready(function(){
 })
 </script>
 
-    <script>
+<script>
 function initialize() {
   var myLatlng = new google.maps.LatLng(5.41747,100.34026);
   var mapOptions = {
@@ -77,5 +43,9 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 
-    </script>
+<style type="text/css">
+#room_des li{list-style-type: none;margin: 0px;}
+#hotel_rooms{background:#FFF;padding:10px;}
+</style>

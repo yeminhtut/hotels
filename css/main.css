@@ -56,4 +56,47 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+.room-book {
+    max-height: 100px;
+}
+#property_facts_wrapper {
+    background: #FFF;
+    padding: 10px;
+    width: 100%;
+}
+#property_img {
+    width: 50%;
+    float: left;
+}
+#property_facts {
+    width: 50%;
+    float: left;
+}
+#property_img img {
+    height: 200px;
+}
+.clear {
+    clear: both;
+}
+.room-name,
+.room-des,
+.room-price,
+.room-book {
+    width: 25%;
+}
+.room-title,
+.room-des {
+    color: #4b4b4c;
+}
+.book {
+    margin-top: 30px;
+}
+.tab-cls {
+    padding: 10px;
+}
+#map-canvas {
+    height: 400px;
+    margin: 0px;
+    padding: 0px
+}
 

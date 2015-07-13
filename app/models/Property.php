@@ -15,6 +15,7 @@ class Property extends Model {
     $this->rs['property_id']=0;
     $this->rs['zumata_property_id']='';
     $this->rs['address']='';
+    $this->rs['property_name']='';
     $this->rs['city']='';
     $this->rs['description']='';
     $this->rs['image_details']='';

@@ -5,10 +5,13 @@ function _detail($detail = '', $hotel_id = '', $hotel_slug = '', $checkIn, $chec
     
     $property = new Property();
     $property->retrieve_one("zumata_property_id=?", $hotel_id);
-    
-    $content['property'] = $property;
-    //var_dump($content['property']);exit;
-    
+    //var_dump($property);exit;
+    $amenity = new Amenity();
+    $amenity->retrieve_one('zumata_id=?',$hotel_id);
+
+    $content['amenity'] = make_hotel_amenity($amenity);
+    $content['property'] = $property;       
+
     $checkInArr = explode('-', $checkIn);
     $check_in   = $checkInArr[1] . '/' . $checkInArr[0] . '/' . $checkInArr[2];
     
@@ -29,10 +32,11 @@ function _detail($detail = '', $hotel_id = '', $hotel_slug = '', $checkIn, $chec
     $query['currency'] = 'SGD';
     $query['timeout']  = rand(1, 20);
     $query['api_key']  = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    //echo $request->getUrl();exit;
+    // echo $request->getUrl();exit;
     $response = $client->get($request->getUrl());
     $result   = $response->json();
     $rooms    = $result['content']['hotels'][0]['rates']['packages'];    
+    //var_dump($rooms);exit;
     $hotel_rooms = make_hotel_rooms_html($rooms);
     
     $content['hotel_rooms'] = $hotel_rooms;
@@ -42,11 +46,24 @@ function _detail($detail = '', $hotel_id = '', $hotel_slug = '', $checkIn, $chec
     View::do_dump(VIEW_PATH . 'layouts/layout.php', $data);
 }
 
+function make_hotel_amenity($amenity){
+    $html = '';
+    $amenity = unserialize($amenity->amenities);
+    foreach ($amenity as $k => $v) {
+        if ($amenity[$k] == 'true') {
+            $k = preg_split('/(?=[A-Z])/',$k);
+            $amenities = ucfirst($k[0]).' '.ucfirst($k[1]);
+            $html .= '<li><input type="checkbox" checked disabled>'.$amenities.' </li>';
+        }
+    }
+    return $html;
+}
 function make_hotel_rooms_html($rooms)
 {
     $html = '';
     
     foreach ($rooms as $room) {
+        $key = $room['key'];
         $room_type   = $room['normalizedRoomDescription'];
         $description = $room['roomDescription'];
         $price       = $room['roomRate'];
@@ -58,12 +75,11 @@ function make_hotel_rooms_html($rooms)
                     <h3>SGD '.$price.'</h3>                
                     </div>
                     <div class="room-book left">
-                    <button type="submit" class="btn green-btn book">Book</button>
+                    
+                    <a href="/hotels/property/booking/'.$key.'" class="btn green-btn">Book</a>
                     </div><div class="clear"></div></div>';
     }    
     return $html;
 }
 
-function get_hotel($hotel_id){
 
-}

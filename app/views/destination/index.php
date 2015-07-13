@@ -23,7 +23,9 @@ var line = new ProgressBar.Line('#progressTimer', {
     strokeWidth: 0.5,
 });
 
-line.animate(1.0);  // Number from 0.0 to 1.0
+line.animate(1.0,function(){
+  line.destroy();
+});  // Number from 0.0 to 1.0
 
 </script>
 <style type="text/css">
