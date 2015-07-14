@@ -9,6 +9,8 @@ function _search_hotels()
     $checkOutArr = explode('-', $_POST['checkout']);
     $check_out   = $checkOutArr[1] . '/' . $checkOutArr[0] . '/' . $checkOutArr[2];
     
+    $rooms = $_POST['rooms'];
+    $persons = $_POST['persons'];
     $client               = new Client();
     $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
     $query                = $request->getQuery();
@@ -16,8 +18,8 @@ function _search_hotels()
     $query['checkin']     = str_replace('%2F', '/', $check_in);
     $query['checkout']    = str_replace('%2F', '/', $check_out);
     $query['lang']        = 'en_US';
-    $query['rooms']       = 1;
-    $query['adults']      = 1;
+    $query['rooms']       = $rooms;
+    $query['adults']      = $persons;
     $query['currency']    = 'SGD';
     $query['timeout']     = rand(1, 10);
     $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';

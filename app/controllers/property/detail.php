@@ -32,7 +32,7 @@ function _detail($detail = '', $hotel_id = '', $hotel_slug = '', $checkIn, $chec
     $query['currency'] = 'SGD';
     $query['timeout']  = rand(1, 20);
     $query['api_key']  = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    // echo $request->getUrl();exit;
+    //echo $request->getUrl();exit;
     $response = $client->get($request->getUrl());
     $result   = $response->json();
     $rooms    = $result['content']['hotels'][0]['rates']['packages'];    

@@ -2,7 +2,7 @@
 	<div class="container"></div>
 	<div class="topic__infos">
 		<div class="container">
-			<form class="form-inline" action="property/search_new" method="POST">
+			<form class="form-inline" action="property/search_new" method="POST" autocomplete="off">
 			<div class="form-group">
 				<select class="form-control" name="where">
 					<?= $location ?>
@@ -12,7 +12,7 @@
 				<input type="text" class="form-control" id="datepicker" placeholder="Check-in" name="check-in-date">
 			</div>
 			<div class="form-group">			   
-				<input type="text" class="form-control" id="datepickerCheckout" placeholder="Check-out" name="check-out-date">
+				<input type="text" class="form-control" id="datepickerCheckout" placeholder="Check-out" name="check-out-date" disabled>
 			</div>
 			<div class="form-group">	
 				<select class="form-control" name="no_of_guests">					
@@ -39,7 +39,7 @@
 <script>
 $(document).ready(function() {
 	var now = new Date();
-	var d = new Date(new Date().getTime() + 72 * 60 * 60 * 1000);
+	var d = new Date(new Date().getTime() + 168 * 60 * 60 * 1000);
 	var checkInStart = d.format("mm/dd/yyyy");	
 
 	$('#datepicker').datepicker({
@@ -49,7 +49,6 @@ $(document).ready(function() {
 	});
 	$('#datepicker').change(function(){
     var changedate = $('#datepicker').val();
-    console.log(changedate);
     var myDate = new Date(changedate);	
     var checkout = myDate.setDate(myDate.getDate() + 1);
     var time = 1435334400000;
@@ -57,8 +56,7 @@ $(document).ready(function() {
 	var t = date.toString("MMMM yyyy");
 	var newdate = new Date(t);
 	var can = (newdate.getMonth() + 1) + '/' + newdate.getDate() + '/' +  newdate.getFullYear();
-	console.log(can); // Wed Jan 12 2011 12:42:46 GMT-0800 (PST)
-    //console.log(checkout);
+	$("#datepickerCheckout").removeAttr('disabled');
 	    $('#datepickerCheckout').datepicker({
 			startDate: can,	    
 		    autoclose: true,

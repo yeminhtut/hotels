@@ -69,7 +69,7 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
                 complete: function() {
                     var status = $("#status").html();
                     if (time < 10001 && status !== 1) {
-                        console.log(status);
+                        // console.log(status);
                         console.log(time);
                         setTimeout(load_select, 5000);
                         time = time + 5000;

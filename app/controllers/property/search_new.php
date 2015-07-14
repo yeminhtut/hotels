@@ -4,7 +4,7 @@ function _search_new()
     $where             = $_POST['where'];
     $check_in          = date("d-m-Y", strtotime($_POST['check-in-date']));
     $check_out         = date("d-m-Y", strtotime($_POST['check-out-date']));
-    if (empty($where) || $check_out<$check_in ) {
+    if (empty($where) || $check_out<$check_in || $check_in=='01-01-1970' ) {
         redirect('/');exit;
     }
     $guests            = $_POST['no_of_guests'];
