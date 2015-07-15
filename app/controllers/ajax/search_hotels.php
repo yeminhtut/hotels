@@ -61,15 +61,31 @@ function get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $
         $hotel_id  = $hotel_id;
         $address   = $result['address'];
         $thumbnail = make_hotel_thumb($result['image_details']);
-        $html .= '<li class="hotel-row"><div class="hotel-thumbnail left">                    
-                    <img width="180" height="120" src="' . $thumbnail . '" onerror="imgError(this);">                    
-                    </div>
-                    <div class="hotel-name left"><h3 class="link-title">' . $name . '</h3><p><span class="hotel_address">'.$address.'</span></p></div>
-                    <div class="hotel-price left">
-                        <a href="/hotels/property/detail/' . $hotel_id . '/' . $slug . '/' . $checkIn . '/' . $checkOut . '/' . $rooms . '/' . $persons . '" target="_blank"><button type="submit" class="btn green-btn detail">Details</button></a>
-                    </div><div class="clear"></div></li>';
-    }
-   
+        $html .= '<li class="hotel-row" data-price='.$cheapest_price.'>
+                    <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;">
+                         <div class="img_list">
+                            <a href=""><img width="180" height="120" src="'.$thumbnail.'" onerror="imgError(this);"></a>
+                        </div>
+                    </div>   
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="rooms_list_desc">
+                         <h3 class="link-title">'.$name.'</h3>
+                      </div>
+                   </div>
+                   <div class="col-lg-2 col-md-2 col-sm-2">
+                      <div class="price_list">
+                         <div>
+                            <sup>$</sup>'.$cheapest_price.'<small>*Pax/Per night</small>
+                            <p>
+                               <a href="/hotels/property/detail/' . $hotel_id . '/' . $slug . '/' . $checkIn . '/' . $checkOut . '/' . $rooms . '/' . $persons . '" target="_blank" class="btn green-btn">Details</a>
+                            </p>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="clear"></div>
+                </li>
+        ';
+    }   
     return $html;
 }
 
