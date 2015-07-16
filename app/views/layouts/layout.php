@@ -9,8 +9,8 @@ $foot[]=getjAlert();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title><?=$pagetitle?></title>
 <link rel="stylesheet" type="text/css" href="/hotels/css/reset.css">
-<link rel="stylesheet" type="text/css" href="/hotels/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="/hotels/css/main.css">
+<link rel="stylesheet" type="text/css" href="/hotels/web/css/bootstrap.min.css">
+
 <link rel="stylesheet" type="text/css" href="/hotels/css/site.css">
 <script type="text/javascript" src="<?=myUrl('/js/jquery.min.js')?>"></script>
 <script type="text/javascript" src="<?=myUrl('/js/dateformat.js')?>"></script>

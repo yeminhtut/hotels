@@ -1,42 +1,41 @@
 <?php
 use GuzzleHttp\Client;
-function _search_hotels()
+function _search_hotels_new()
 {
     
-    $checkInArr = explode('-', $_POST['checkin']);
-    $check_in   = $checkInArr[1] . '/' . $checkInArr[0] . '/' . $checkInArr[2];
+    // $checkInArr = explode('-', $_POST['checkin']);
+    // $check_in   = $checkInArr[1] . '/' . $checkInArr[0] . '/' . $checkInArr[2];
     
-    $checkOutArr = explode('-', $_POST['checkout']);
-    $check_out   = $checkOutArr[1] . '/' . $checkOutArr[0] . '/' . $checkOutArr[2];
+    // $checkOutArr = explode('-', $_POST['checkout']);
+    // $check_out   = $checkOutArr[1] . '/' . $checkOutArr[0] . '/' . $checkOutArr[2];
     
-    $rooms = $_POST['rooms'];
-    $persons = $_POST['persons'];
+    // $rooms = $_POST['rooms'];
+    // $persons = $_POST['persons'];
     $client               = new Client();
-    $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
-    $query                = $request->getQuery();
-    $query['destination'] = $_POST['destination'];
-    $query['checkin']     = str_replace('%2F', '/', $check_in);
-    $query['checkout']    = str_replace('%2F', '/', $check_out);
-    $query['lang']        = 'en_US';
-    $query['rooms']       = $rooms;
-    $query['adults']      = $persons;
-    $query['currency']    = 'SGD';
-    $query['timeout']     = rand(1, 10);
-    $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-   
-    $response             = $client->get($request->getUrl());
+    // $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
+    // $query                = $request->getQuery();
+    // $query['destination'] = $_POST['destination'];
+    // $query['checkin']     = str_replace('%2F', '/', $check_in);
+    // $query['checkout']    = str_replace('%2F', '/', $check_out);
+    // $query['lang']        = 'en_US';
+    // $query['rooms']       = $rooms;
+    // $query['adults']      = $persons;
+    // $query['currency']    = 'SGD';
+    // $query['timeout']     = rand(1, 10);
+    // $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
+    $url = 'http://api.zumata.com/search?destination=b679803d-8b3f-4c43-7134-810729ed4c28&checkin=08/08/2015&checkout=08/10/2015&lang=en_US&rooms=1&adults=1&currency=SGD&timeout=0&api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
+    $response             = $client->get($url);
     $result               = $response->json();
+    // var_dump($result);exit;
+    // $result['searchCompleted'];
     $room_arr             = $result['content']['hotels'];
-    if (count($room_arr)>0) {
-       $avaliable_room_list  = make_avaliable_room_html($room_arr, $_POST['checkin'], $_POST['checkout'], $_POST['persons'], $_POST['rooms']);
-       echo $avaliable_room_list;exit;
-    }    
-    else if (count($room_arr  == 0 && $result['searchCompleted'] == 'true')) {
+    $avaliable_room_list  = make_avaliable_room_html($room_arr, $_POST['checkin'], $_POST['checkout'], $_POST['persons'], $_POST['rooms']);
+    if (empty($avaliable_room_list)) {
         echo 'null';
         exit;
     }
-    $overhead = '<div style="display: none;" id="statusajax">'.$result['searchCompleted'].'</div>';
-    
+    $overhead = '<div style="display: none;" id="status">'.$result['searchCompleted'].'</div>';
+    echo $avaliable_room_list.$overhead;
 }
 
 function make_avaliable_room_html($room_arr, $checkIn, $checkOut, $persons, $rooms)

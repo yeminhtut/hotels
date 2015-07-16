@@ -1,7 +1,7 @@
 <div class="row" style="background:#FFF;margin-top:30px;padding:10px;">
    <div class="col-md-8">
       <!--Start New Form -->
-      <form class="form-horizontal" action="/hotels/property/booking_result" method="POST">
+      <form id="form-booking" class="form-horizontal" action="/hotels/property/booking_result" method="POST">
          <ul>
             <li>
                <h3>Guest Information</h3>
@@ -120,3 +120,10 @@
    <!--end of booking-info -->
    <div class="col-md-4">Booking Summary</div>
 </div>
+
+<style type="text/css">
+#form-booking li:not(:last-child){
+  border-bottom: 1px solid #EBEBEB;
+}
+
+</style>

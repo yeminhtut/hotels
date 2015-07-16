@@ -71,6 +71,9 @@
    <div class="clear"></div>
 </li>
 </ul>
+
+ <span class="glyphicon glyphicon-chevron-right"></span>
+ <span class="glyphicon glyphicon-map-marker"></span>
 <style type="text/css">
 .hotel-row{list-style-type: none;}
 .clear{clear:both;}

@@ -15,31 +15,11 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     
     $complete = false;
     $counter  = 0;
-    //while ( $complete == false && $counter < 50 ) {
-    //$result = get_avaliable_hotels_result($location_id,$rooms,$persons,$check_in,$check_out);
-   
-    //  sleep(1);
-    //  $complete = $result['searchCompleted'];
-    //  $counter = $counter + 1;
-    // }
-    
-    //if ($complete == true) {
-    //$room_arr = $result['content']['hotels']; 
-    
-    // $avaliable_room_list = make_avaliable_room_html($room_arr,$checkIn,$checkOut,$persons,$rooms);
-    
-    // $content['search_complete'] = $counter;  
-    // $content['hotel_list'] = $avaliable_room_list;   
-    // $data['pagename']= $location_slug;         
-    // $data['body'][]=View::do_fetch(VIEW_PATH.'destination/index.php',$content);
-    // View::do_dump(VIEW_PATH.'layouts/layout.php',$data);
-    //}
-    // exit;
+
     $repeat_calls = ',
       complete: function() {
         if (time < 30001) {
           console.log(time);
-          //setTimeout(load_select, 5000);
           time = time + 5000;
         }else if (time > 30001){
         $("#fetch-note").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
@@ -48,7 +28,6 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     
     $foot_script = '
         var time = 0;
-
         function load_select() {
                 var cur_url = window.location.href;
                 var parse_arr = cur_url.split("/");
@@ -62,18 +41,23 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
                 url: "http://localhost/hotels/ajax/search_hotels",                
                 data: {destination:destination, checkin:checkin,checkout:checkout,persons:persons,rooms:rooms},
                 success: function(data) {
-                    if (data.length > 4) {
+                    var statusajax = $("#statusajax").html();
+                    if(statusajax == 1){
+                        $("#status").html(statusajax);
+                    }
+                    if(data !== null){
+                        //console.log(data);
                         $("#avaliable-list").html(data);
-                    }                 
+                    }               
+                                
                 },
                 complete: function() {
                     var status = $("#status").html();
-                    if (time < 10001 && status !== 1) {
-                        // console.log(status);
+                    if (time < 5001 && status !== 1) {
                         console.log(time);
                         setTimeout(load_select, 5000);
                         time = time + 5000;
-                    } else if (time > 10001 && status !== 1) {
+                    } else if (time > 5001 && status !== 1) {
                         //$("#avaliable-list").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
                     }
                 }
@@ -102,7 +86,6 @@ function get_avaliable_hotels_result($location_id, $rooms, $persons, $check_in, 
     $query['currency']    = 'SGD';
     $query['timeout']     = rand(1, 10);
     $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    //return $request->getUrl();
     $response             = $client->get($request->getUrl());
     $result               = $response->json();
     return $result;

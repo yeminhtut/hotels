@@ -65,12 +65,11 @@
     width: 100%;
 }
 #property_img {
-    width: 50%;
     float: left;
 }
 #property_facts {
-    width: 50%;
     float: left;
+    margin-left:20px;
 }
 #property_img img {
     height: 200px;
@@ -99,4 +98,9 @@
     margin: 0px;
     padding: 0px
 }
+
+#room_des li{list-style-type: none;margin: 0px;margin-right: 4px;margin-bottom: 4px;}
+#hotel_rooms{background:#FFF;padding:10px;}
+#room_des li span{margin-right:4px;}
+
 
