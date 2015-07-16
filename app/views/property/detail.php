@@ -14,7 +14,7 @@
     </div>
 </div>
 <div  id="hotel_rooms">
-    <div class="col-md-4" id="room_des">
+    <div class="col-md-3" id="room_des">
         <div>
             <h3>Rating</h3>
             <img src="http://localhost/hotels/web/img/rating/<?= $property->rating;?>star.png">
@@ -24,7 +24,7 @@
             <?= $amenity ?> 
         </div>
     </div>
-    <div class="col-md-8" id="room_list"><?= $hotel_rooms ?></div>
+    <div class="col-md-9" id="room_list"><?= $hotel_rooms ?></div>
     <div class="clear"></div>
 </div>
 
@@ -47,6 +47,13 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+<style type="text/css">
+.room-title{
+    font-size: 20px;
+  color: #4b4b4c;
+  font-weight: bold;
+}
+</style>
 <?php 
   function get_thumbnail($image_arr){
     $image_arr = unserialize($image_arr);    
@@ -62,6 +69,4 @@ google.maps.event.addDomListener(window, 'load', initialize);
     }
     return $src;
   }
-
-
  ?>

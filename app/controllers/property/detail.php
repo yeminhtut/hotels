@@ -72,14 +72,15 @@ function make_hotel_rooms_html($rooms)
         $room_type   = $room['normalizedRoomDescription'];
         $description = $room['roomDescription'];
         $price       = $room['roomRate'];
-        $html .= '<div class="hotel-row"><div class="room-name left">                  
+        $html .= '<div class="hotel-row">
+                    <div class="col-md-6">                  
                     <h3 class="room-title">'.$room_type.'</h3>                
                     </div>
-                    <div class="room-des left"><h3 class="link-title" style="font-size:16px;">' . $description . '</h3></a></div>
-                    <div class="room-price left">                  
+                    
+                    <div class="col-md-3">                  
                     <h3>SGD '.$price.'</h3>                
                     </div>
-                    <div class="room-book left">                    
+                    <div class="col-md-3">                    
                     <a href="/hotels/property/booking/'.$key.'" class="btn green-btn" style="margin-top:20px;">Book</a>
                     </div><div class="clear"></div></div>';
     }    
