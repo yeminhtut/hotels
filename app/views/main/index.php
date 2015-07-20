@@ -4,15 +4,17 @@
         <div class="container">
             <form class="form-inline" action="property/search_new" method="POST" autocomplete="off" data-toggle="validator">
                 <div class="form-group">
-                    <select class="form-control" name="where">					
-                    <?= $location ?>
-                    </select>
+               					
+                        <input class="required search_table_cell_input form-control" id="where" name="where" type="text" placeholder="eg. Singapore"/>            
+                        <input class="" id="destination_code" type="hidden" name="destination_code" value="">
+                        <input class="" id="autocomplete" type="hidden" name="autocomplete" value="n">
+               
                 </div>
                 <div class="form-group">			    
-                    <input type="text" class="form-control" id="datepicker" placeholder="Check-in" name="check-in-date" data-error="plz select check in date" required>
+                    <input type="text" class="form-control" id="datepicker" placeholder="Check-in" name="check-in-date" data-error="plz select check in date" >
                 </div>
                 <div class="form-group">			   
-                    <input type="text" class="form-control" id="datepickerCheckout" placeholder="Check-out" name="check-out-date" disabled data-error="plz select check out date" required>
+                    <input type="text" class="form-control" id="datepickerCheckout" placeholder="Check-out" name="check-out-date" disabled data-error="plz select check out date" >
                 </div>
                 <div class="form-group">
                     <select class="form-control" name="no_of_guests">
@@ -64,4 +66,38 @@ $(document).ready(function() {
         });
     });
 });
+</script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.11.4/themes/excite-bike/jquery-ui.css">
+<script type="text/javascript">
+$(document).ready(function(){
+        $( "#where" ).autocomplete({
+          source: function( request, response ) {
+              $.ajax({
+              url: "http://localhost/hotels/scraper",
+              dataType: 'json',
+              type: 'POST',
+              data: request,
+              success: function(data){
+                console.log(data);
+                  response(data);                
+            }
+            });
+          },
+          minLength: 2,
+          select: function( event, ui ) {
+            $('#destination_code').val(ui.item.id); 
+            $('#autocomplete').val('y');
+          },
+          open: function() {
+            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            $( this ).autocomplete( 'widget' ).css( 'z-index' , 100);
+          },
+          close: function() {
+            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+          }
+        }); 
+
+});
+
 </script>

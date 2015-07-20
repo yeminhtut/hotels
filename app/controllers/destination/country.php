@@ -11,58 +11,31 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     
     $rooms       = $rooms;
     $persons     = $persons;
-    $location_id = trim(strip_tags($location_id));
-    
-    $complete = false;
-    $counter  = 0;
+    $location_id = trim(strip_tags($location_id));    
 
-    $repeat_calls = ',
-      complete: function() {
-        if (time < 30001) {
-          console.log(time);
-          time = time + 5000;
-        }else if (time > 30001){
-        $("#fetch-note").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
-        }
-      }';
-    
-    $foot_script = '
-        var time = 0;
-        function load_select() {
-                var cur_url = window.location.href;
-                var parse_arr = cur_url.split("/");
-                var destination = parse_arr[5];
-                var checkin = parse_arr[7];
-                var checkout = parse_arr[8];
-                var persons = parse_arr[9];
-                var rooms = parse_arr[10];
-            $.ajax({
-                type:"POST",
-                url: "http://localhost/hotels/ajax/search_hotels",                
-                data: {destination:destination, checkin:checkin,checkout:checkout,persons:persons,rooms:rooms},
-                success: function(data) {
-                    var statusajax = $("#statusajax").html();
-                    if(statusajax == 1){
-                        $("#status").html(statusajax);
-                    }
-                    if(data !== null){
-                        //console.log(data);
-                        $("#avaliable-list").html(data);
-                    }               
-                                
-                },
-                complete: function() {
-                    var status = $("#status").html();
-                    if (time < 5001 && status !== 1) {
-                        console.log(time);
-                        setTimeout(load_select, 5000);
-                        time = time + 5000;
-                    } else if (time > 5001 && status !== 1) {
-                        //$("#avaliable-list").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
-                    }
-                }
-            });
-        }';
+    $client               = new Client();
+    $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
+    $query                = $request->getQuery();
+    $query['destination'] = $location_id;
+    $query['checkin']     = str_replace('%2F', '/', $check_in);
+    $query['checkout']    = str_replace('%2F', '/', $check_out);
+    $query['lang']        = 'en_US';
+    $query['rooms']       = $rooms;
+    $query['adults']      = $persons;
+    $query['currency']    = 'SGD';
+    $query['timeout']     = rand(1, 10);
+    $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
+    //echo $request->getUrl();exit;
+    $response             = $client->get($request->getUrl());
+    $result               = $response->json();
+    $room_arr             = $result['content']['hotels'];
+    //print_r($room_arr[0]);exit;
+
+
+    $loc_response = $client->get('http://data.zumata.com/destinations/' . $location_id . '/en_US/short.json');
+    $loc_result   = $loc_response->json();
+    print_r($loc_result[0]);exit;
+    var_dump($loc_result[0]);exit;
     $content['footer_script']   = $foot_script;
     $content['search_complete'] = $counter;
     $content['hotel_list']      = $avaliable_room_list;

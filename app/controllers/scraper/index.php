@@ -2,11 +2,22 @@
 use GuzzleHttp\Client;
 function _index()
 {
+    $term = trim($_POST['term']);
+    //$term = 'yangon';    
+    $client = new Client();
+    $response = $client->get('http://api.zumata.com/autosuggest/'.$term.'?api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P');
+    $tags = $response->json();	
+    $tags = array_map(function($tag) {
+        return array(
+            'label' => $tag['label'],
+            'id' => $tag['value']
+        );
+    }, $tags);
+    echo json_encode($tags);exit;
     
-    // $client = new Client();
-    // $response = $client->get('http://api.zumata.com/autosuggest/malaysia?api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P');
-    // $result = $response->json();	
-    
+    $json = file_get_contents('http://localhost/hotels/web/locations/locations.json');
+    $result = json_decode($json, true);
+    var_dump($result);exit;
     
     $locationIdArr = array(
         '659197a6-62c1-4636-768b-3fcb2ebc0ecf',
@@ -41,35 +52,35 @@ function _index()
         'aa257c52-7d08-42f9-736b-84129ffb74ef'
     );
     foreach ($locationIdArr as $k => $v) {
-        $client   = new Client();
-        $response = $client->get('http://data.zumata.com/destinations/' . $locationIdArr[$k] . '/en_US/long.json');
-        $result   = $response->json();
+        // $client   = new Client();
+        // $response = $client->get('http://data.zumata.com/destinations/' . $locationIdArr[$k] . '/en_US/long.json');
+        // $result   = $response->json();
         
-        $location_id = $locationIdArr[$k];
-        foreach ($result as $k => $v) {
-            $address     = $result[$k]['address'];
-            $zumata_id   = $result[$k]['id'];
-            $location_id = $location_id;
-            $lat         = $result[$k]['latitude'];
-            $lng         = $result[$k]['longitude'];
-            $description = $result[$k]['description'];
-            $status      = 0;
-            $result_id   = check_existing($zumata_id, $location_id);
+        // $location_id = $locationIdArr[$k];
+        // foreach ($result as $k => $v) {
+        //     $address     = $result[$k]['address'];
+        //     $zumata_id   = $result[$k]['id'];
+        //     $location_id = $location_id;
+        //     $lat         = $result[$k]['latitude'];
+        //     $lng         = $result[$k]['longitude'];
+        //     $description = $result[$k]['description'];
+        //     $status      = 0;
+        //     $result_id   = check_existing($zumata_id, $location_id);
             
-            if ($result_id) {
-                $dbh       = getdbh();
-                $statement = "UPDATE `hotels`.`t_property` SET `description` = '$description' WHERE `t_property`.`property_id` = '$result_id'";
-                $sql       = $dbh->prepare($statement);
-                $sql->execute();
-            } else {
-                $data     = $result[$k];
-                $insertID = scrap_to_table($result[$k], $location_id);
-                echo $$zumata_id;
-                echo "<br/>";
-                echo $insertID;
-                echo "<hr/>";
-            }
-        }
+        //     if ($result_id) {
+        //         $dbh       = getdbh();
+        //         $statement = "UPDATE `hotels`.`t_property` SET `description` = '$description' WHERE `t_property`.`property_id` = '$result_id'";
+        //         $sql       = $dbh->prepare($statement);
+        //         $sql->execute();
+        //     } else {
+        //         $data     = $result[$k];
+        //         $insertID = scrap_to_table($result[$k], $location_id);
+        //         echo $$zumata_id;
+        //         echo "<br/>";
+        //         echo $insertID;
+        //         echo "<hr/>";
+        //     }
+        // }
     }
     
 }

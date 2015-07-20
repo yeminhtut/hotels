@@ -57,7 +57,7 @@ $foot[]=getjAlert();
 <?=(isset($foot) && is_array($foot)) ? implode("\n",$foot) : ''?>
 <script type="text/javascript">
   $(document).ready(function(){
-    $("#main-search-wrapper").backstretch("http://localhost/hotels/web/img/slide_hero.jpg");
+  //  $("#main-search-wrapper").backstretch("http://localhost/hotels/web/img/slide_hero.jpg");
   })
 </script>
 <style type="text/css">

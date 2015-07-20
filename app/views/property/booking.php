@@ -125,5 +125,5 @@
 #form-booking li:not(:last-child){
   border-bottom: 1px solid #EBEBEB;
 }
-
+#form-booking .form-control{box-shadow: none;}
 </style>
