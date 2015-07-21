@@ -2,9 +2,12 @@
 <div style="display: none;" id="status">0</div>
 <div id="progressTimer"></div>
 <div class="row" id="avaliable-list">
+
   <div id="image" style="background:#FFF;height:400px;width:100%;text-align:center;">
     <img src="http://localhost/hotels/web/img/ajax-loader.gif" height="14px;" width="256px;" style="margin-top:200px;">
   </div>
+
+  <?//= $hotel_list; ?>
 </div>
 <div id="fetch-note"></div>
 
@@ -13,7 +16,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
       load_select(0); 
-      var status = $('#status').html();
+      // var status = $('#status').html();
 });
 function imgError(image){
 	image.onerror = "";
