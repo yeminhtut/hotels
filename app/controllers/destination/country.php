@@ -37,38 +37,38 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
 
 
 
-    $foot_script = '
-        var time = 0;
-        function load_select() {
-                var cur_url = window.location.href;
-                var parse_arr = cur_url.split("/");
-                var destination = parse_arr[5];
-                var checkin = parse_arr[7];
-                var checkout = parse_arr[8];
-                var persons = parse_arr[9];
-                var rooms = parse_arr[10];
-            $.ajax({
-                type:"POST",
-                url: "http://localhost/hotels/ajax/search_hotels",                
-                data: {destination:destination, checkin:checkin,checkout:checkout,persons:persons,rooms:rooms},
-                success: function(data) {
-                    console.log(data.length);                    
-                    if(data !== "null" || data.lenght > 10){                    
-                        $("#avaliable-list").html(data);
-                    }                                              
-                },
-               complete: function() {
-                    var status = $("#status").html();
-                    if (time < 5001) {
-                        console.log(time);
-                        setTimeout(load_select, 5000);
-                        time = time + 5000;
-                    } else if (time > 5001 && status !== 1) {
-                        //$("#avaliable-list").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
-                    }
-                }
-            });
-        }';
+    // $foot_script = '
+    //     var time = 0;
+    //     function load_select() {
+    //             var cur_url = window.location.href;
+    //             var parse_arr = cur_url.split("/");
+    //             var destination = parse_arr[5];
+    //             var checkin = parse_arr[7];
+    //             var checkout = parse_arr[8];
+    //             var persons = parse_arr[9];
+    //             var rooms = parse_arr[10];
+    //         $.ajax({
+    //             type:"POST",
+    //             url: "http://localhost/hotels/ajax/search_hotels",                
+    //             data: {destination:destination, checkin:checkin,checkout:checkout,persons:persons,rooms:rooms},
+    //             success: function(data) {
+    //                 console.log(data.length);                    
+    //                 if(data !== "null" || data.lenght > 10){                    
+    //                     $("#avaliable-list").html(data);
+    //                 }                                              
+    //             },
+    //            complete: function() {
+    //                 var status = $("#status").html();
+    //                 if (time < 5001) {
+    //                     console.log(time);
+    //                     setTimeout(load_select, 5000);
+    //                     time = time + 5000;
+    //                 } else if (time > 5001 && status !== 1) {
+    //                     //$("#avaliable-list").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
+    //                 }
+    //             }
+    //         });
+    //     }';
     $content['footer_script']   = $foot_script;
     //$content['hotel_list']      = $hotel_list;
     $data['pagename']           = $location_slug;
