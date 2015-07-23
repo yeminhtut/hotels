@@ -27,7 +27,7 @@ function _search_hotels()
    
     $response             = $client->get($request->getUrl());
     $result               = $response->json();
-    $avaliable_room_arr             = $result['content']['hotels'];
+    $avaliable_room_arr   = $result['content']['hotels'];
 
     $loc_response = $client->get('http://data.zumata.com/destinations/' . $location_id . '/en_US/long.json');
     $location_result   = $loc_response->json();

@@ -9,12 +9,13 @@ function _search_hotels_new()
     // $checkOutArr = explode('-', $_POST['checkout']);
     // $check_out   = $checkOutArr[1] . '/' . $checkOutArr[0] . '/' . $checkOutArr[2];
     
+    // $location_id = $_POST['destination'];
     // $rooms = $_POST['rooms'];
     // $persons = $_POST['persons'];
     $client               = new Client();
     // $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
     // $query                = $request->getQuery();
-    // $query['destination'] = $_POST['destination'];
+    // $query['destination'] = $location_id;
     // $query['checkin']     = str_replace('%2F', '/', $check_in);
     // $query['checkout']    = str_replace('%2F', '/', $check_out);
     // $query['lang']        = 'en_US';
@@ -23,30 +24,72 @@ function _search_hotels_new()
     // $query['currency']    = 'SGD';
     // $query['timeout']     = rand(1, 10);
     // $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    $url = 'http://api.zumata.com/search?destination=b679803d-8b3f-4c43-7134-810729ed4c28&checkin=08/08/2015&checkout=08/10/2015&lang=en_US&rooms=1&adults=1&currency=SGD&timeout=0&api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    $response             = $client->get($url);
+    
+    $response             = $client->get('http://api.zumata.com/search?destination=c35b1149-4336-4065-76c4-0afbbe495b5c&checkin=08/22/2015&checkout=08/23/2015&lang=en_US&rooms=1&adults=1&currency=SGD&timeout=0&api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P');
     $result               = $response->json();
-    // var_dump($result);exit;
-    // $result['searchCompleted'];
-    $room_arr             = $result['content']['hotels'];
-    $avaliable_room_list  = make_avaliable_room_html($room_arr, $_POST['checkin'], $_POST['checkout'], $_POST['persons'], $_POST['rooms']);
-    if (empty($avaliable_room_list)) {
-        echo 'null';
-        exit;
-    }
-    $overhead = '<div style="display: none;" id="status">'.$result['searchCompleted'].'</div>';
-    echo $avaliable_room_list.$overhead;
+    $avaliable_room_arr   = $result['content']['hotels'];
+    
+    $loc_response = $client->get('http://data.zumata.com/destinations/c35b1149-4336-4065-76c4-0afbbe495b5c/en_US/long.json');
+    $location_result   = $loc_response->json();
+
+    $hotel_rooms = merge_location_avaliable($location_result,$avaliable_room_arr);
+
+    // foreach ($hotel_rooms as $k => $v) {
+    //     var_dump($hotel_rooms[$k]);exit;
+    // }
+
+    echo json_encode($hotel_rooms);
 }
 
-function make_avaliable_room_html($room_arr, $checkIn, $checkOut, $persons, $rooms)
+function merge_location_avaliable($location_result,$avaliable_room_arr){
+    $result = array();
+    foreach($location_result as $values){
+        foreach($avaliable_room_arr as $values2){
+            if($values['id'] == $values2['id']){
+                $result[] = array_merge_recursive($values, $values2);
+                break;
+            }
+        }
+    }
+    return $result;
+}
+
+function make_avaliable_room_html($hotel_rooms)
 {
     $html = '';
     $html  .= '<ul class="hotel-list">';
-    foreach ($room_arr as $hotel) {
-        $hotel_id       = $hotel['id'];
+        foreach ($hotel_rooms as $hotel) {
+        $name = $hotel['name'];
+        $address = $hotel['address'];
+        $id = $hotel['id'][0];
+        $thumbnail = make_hotel_thumb($hotel['image_details']);
         $cheapest_price = $hotel['rates']['packages'][0]['roomRate'];
-        $hotel_detail   = get_room_detail_html($hotel_id, $cheapest_price, $checkIn, $checkOut, $persons, $rooms);    
-        $html .= $hotel_detail;
+        
+        $html .= '<li class="hotel-row" data-price='.$cheapest_price.'>
+                    <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;">
+                         <div class="img_list">
+                            <a href=""><img width="180" height="120" src="'.$thumbnail.'" onerror="imgError(this);"></a>
+                        </div>
+                    </div>   
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="rooms_list_desc">
+                         <h3 class="link-title">'.$name.'</h3>
+                         <span class="glyphicon glyphicon-map-marker"></span><span>'.$address.'</span>
+                      </div>
+                   </div>
+                   <div class="col-lg-2 col-md-2 col-sm-2 ">
+                      <div class="price_list">
+                        
+                            <sup>SGD</sup>'.$cheapest_price.'<small>/Per night</small>
+                            <p>
+                               <a href="" target="_blank" class="btn green-btn">Details</a>
+                            </p>
+                        
+                      </div>
+                   </div>
+                   <div class="clear"></div>
+                </li>
+        ';
     }
     $html  .= '</ul>';
     return $html;
@@ -102,18 +145,12 @@ function get_room_detail_with_id($hotel_id)
     return $result;
 }
 
-function make_hotel_thumb($image_arr)
-{
-    $image_arr = unserialize($image_arr);    
-    $count      = $image_arr['count'];    
-    $prefix     = $image_arr['prefix'];
-    $suffix     = $image_arr['suffix'];
+function make_hotel_thumb($image_details){    
+    $count      = $image_details['count'];    
+    $prefix     = $image_details['prefix'];
+    $suffix     = $image_details['suffix'];
     $image_name = rand(1, $count);
     $image_name = 1;
-    $src        = $prefix . '/' . $image_name . $suffix;
-    // list($width, $height, $type, $attr) = @getimagesize($src);
-    // if (empty($width)) {
-    //     $src = myUrl('/web/img/default.png');        
-    // }
+    $src        = $prefix . '/' . $image_name . $suffix;    
     return $src;
 }

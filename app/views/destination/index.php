@@ -2,13 +2,14 @@
 <div style="display: none;" id="status">0</div>
 <div id="progressTimer"></div>
 <div class="row" id="avaliable-list">
+
   <div id="image" style="background:#FFF;height:400px;width:100%;text-align:center;">
     <img src="http://localhost/hotels/web/img/ajax-loader.gif" height="14px;" width="256px;" style="margin-top:200px;">
   </div>
-<?//= $hotel_list; ?>
+
 </div>
 <div id="fetch-note"></div>
-
+<div id="example2"></div>
 
 
 <script type="text/javascript">
@@ -31,15 +32,21 @@ var time = 0;
                 url: "http://localhost/hotels/ajax/search_hotels", 
                 dataType: 'json',               
                 data: {destination:destination, checkin:checkin,checkout:checkout,persons:persons,rooms:rooms},
-                success: function(data) {                        
-                        console.log(data); 
+                success: function(data) {    
+                        var count = Object.keys(data).length;
+                        console.log(count);                    
+                        
                         newhtml  += '<ul class="hotel-list">';                                 
                         $.each(data,function(i,item){
-                          newhtml += '<li class="hotel-row"><div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;"><div class="img_list"><img width="180" height="120" src="'+item.image_details.prefix+'/1'+item.image_details.suffix+'" onerror="imgError(this);"></div></div><div class="col-lg-6 col-md-6 col-sm-6"><div class="rooms_list_desc"><h3 class="link-title">'+item.name+'</h3><span class="glyphicon glyphicon-map-marker"></span><span>'+item.address+'</span></div></div><div class="clear"></div></li>'
-                          
+                          var jsonObj = JSON.stringify(item);
+                          newhtml += '<li class="hotel-row"><div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;"><div class="img_list"><img width="180" height="120" src="'+item.image_details.prefix+'/1'+item.image_details.suffix+'" onerror="imgError(this);"></div></div><div class="col-lg-6 col-md-6 col-sm-6"><div class="rooms_list_desc"><h3 class="link-title">'+item.name+'</h3><span class="glyphicon glyphicon-map-marker"></span><span>'+item.address+'</span></div></div><div class="clear"></div><span  data-id="'+item.id[0]+'" data-obj="'+item+'" onclick="goDoSomething(this);">check</span></li>'
+                          $('#'+item.id[0]).data('key',item);
                         });
-                        newhtml += '</ul>';   
-                        $('#avaliable-list').html(newhtml);           
+                        newhtml += '</ul>'; 
+                        if (count>1) {
+                          $('#avaliable-list').html(newhtml); 
+                        };   
+                               
                 },
                complete: function() {
                     var status = $("#status").html();
@@ -58,6 +65,9 @@ function imgError(image){
 	image.onerror = "";
   image.src = "http://localhost/hotels/web/img/default.png";
   return true;
+}
+function goDoSomething(d){
+  console.log(d.getAttribute("data-obj"));
 }
 <?= $footer_script; ?>
 

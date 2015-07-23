@@ -73,7 +73,7 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     //$content['hotel_list']      = $hotel_list;
     $data['pagename']           = $location_slug;
     $data['body'][]             = View::do_fetch(VIEW_PATH . 'destination/index.php', $content);
-    View::do_dump(VIEW_PATH . 'layouts/layout.php', $data);    
+    View::do_dump(VIEW_PATH . 'layouts/layout-grid.php', $data);    
 }
 
 function merge_location_avaliable($location_result,$avaliable_room_arr){
