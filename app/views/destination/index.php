@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div id="tst"></div>
+<ul class="hotel-list"></ul>
 <div id="status"></div>
 <div id="table-wrapper">
     <table class="table">
@@ -49,12 +49,11 @@ $(document).ready(function(){
                         var count = Object.keys(data).length;
                         console.log(count);                    
                         
-                        //newhtml  += '<ul class="hotel-list">';   
                         if (count > 1) {
                             var j = 1;
                             $.each(data,function(i,item){
                               newhtml = '<li class="hotel-row '+j+'" ><div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;"><div class="img_list"><img width="180" height="120" src="'+item.image_details.prefix+'/1'+item.image_details.suffix+'" onerror="imgError(this);"></div></div><div class="col-lg-6 col-md-6 col-sm-6"><div class="rooms_list_desc"><h3 class="link-title">'+item.name+'</h3><span class="glyphicon glyphicon-map-marker"></span><span>'+item.address+'</span></div></div><div class="clear"></div></li>'
-                                $( "#tst" ).append(newhtml);
+                                $( ".hotel-list" ).append(newhtml);
                                 $('#avaliable-list').remove();
                                 j++;
                             });
