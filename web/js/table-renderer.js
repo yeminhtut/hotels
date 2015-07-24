@@ -160,7 +160,7 @@
                         }else if(this.params.type === 'activePage') {
                             return '<span class="to-page btn btn-primary active">'+ this.params.pageNumber +'</span>';
                         }else if(this.params.type === 'divider') {
-                            return '<div class="page-divider">...</div>';
+                            return '<div class="page-divider">.....</div>';
                         }else{
                             console.log('invalid type for paginationObj: '+this.params.type);
                         }

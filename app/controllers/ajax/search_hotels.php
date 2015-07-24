@@ -29,26 +29,15 @@ function _search_hotels()
     $result               = $response->json();
     $avaliable_room_arr   = $result['content']['hotels'];
 
-    $loc_response = $client->get('http://data.zumata.com/destinations/' . $location_id . '/en_US/long.json');
-    $location_result   = $loc_response->json();
+    $hotel_rooms = array();
 
-    $hotel_rooms = merge_location_avaliable($location_result,$avaliable_room_arr);
-    //var_dump($hotel_rooms);exit;
-    // $hotel_list = make_avaliable_room_html($hotel_rooms);
-    // echo $hotel_list;
-
-    //echo count($hotel_rooms);exit;
-    echo json_encode($hotel_rooms);
-    // if (count($hotel_rooms)>0) {
-    //    $hotel_list = make_avaliable_room_html($hotel_rooms);
-    //    echo $hotel_list;
-    // }    
-    // else if (count($avaliable_room_arr  == 0 && $result['searchCompleted'] == 'true')) {
-    //     echo 'null';
-    //     exit;
-    // }
-    // $overhead = '<div style="display: none;" id="statusajax">'.$result['searchCompleted'].'</div>';
+    if (count($avaliable_room_arr) > 0) { 
+      $loc_response = $client->get('http://data.zumata.com/destinations/' . $location_id . '/en_US/long.json');
+      $location_result   = $loc_response->json();
+      $hotel_rooms = merge_location_avaliable($location_result,$avaliable_room_arr);
+    }
     
+    echo json_encode($hotel_rooms);    
 }
 
 function merge_location_avaliable($location_result,$avaliable_room_arr){
