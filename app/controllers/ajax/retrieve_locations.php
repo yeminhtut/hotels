@@ -12,3 +12,5 @@ function _retrieve_locations() {
     }, $tags);
     echo json_encode($tags);exit;
 }
+
+?>

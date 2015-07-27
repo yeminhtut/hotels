@@ -9,7 +9,7 @@ $foot[]=getjAlert();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title><?=$pagetitle?></title>
 <link rel="stylesheet" type="text/css" href="/hotels/css/reset.css">
-<link rel="stylesheet" type="text/css" href="http://localhost/hotels/web/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="http://localhost/hotels/web/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/hotels/css/main.css">
 <link rel="stylesheet" type="text/css" href="/hotels/css/site.css">
 <script type="text/javascript" src="<?=myUrl('/js/jquery.min.js')?>"></script>

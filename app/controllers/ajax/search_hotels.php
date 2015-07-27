@@ -27,17 +27,20 @@ function _search_hotels()
    
     $response             = $client->get($request->getUrl());
     $result               = $response->json();
+    $search_completed     = array("search_completed" => false);
+    $search_completed     = array("search_completed"=> $result['searchCompleted']);
     $avaliable_room_arr   = $result['content']['hotels'];
 
-    $hotel_rooms = array();
+    $hotel_list_arr = array();
 
     if (count($avaliable_room_arr) > 0) { 
       $loc_response = $client->get('http://data.zumata.com/destinations/' . $location_id . '/en_US/long.json');
       $location_result   = $loc_response->json();
-      $hotel_rooms = merge_location_avaliable($location_result,$avaliable_room_arr);
+      $hotel_rooms = array("hotels" => merge_location_avaliable($location_result,$avaliable_room_arr));
+      $hotel_list_arr = array_merge($search_completed,$hotel_rooms);
     }
     
-    echo json_encode($hotel_rooms);    
+    echo json_encode($hotel_list_arr);    
 }
 
 function merge_location_avaliable($location_result,$avaliable_room_arr){

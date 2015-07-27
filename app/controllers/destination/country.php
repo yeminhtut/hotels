@@ -2,15 +2,15 @@
 use GuzzleHttp\Client;
 function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $persons, $rooms, $offset = 1)
 {
-    // $checkInArr = explode('-', $checkIn);
-    // $check_in   = $checkInArr[1] . '/' . $checkInArr[0] . '/' . $checkInArr[2];
+    $checkInArr = explode('-', $checkIn);
+    $check_in   = $checkInArr[1] . '/' . $checkInArr[0] . '/' . $checkInArr[2];
     
-    // $checkOutArr = explode('-', $checkOut);
-    // $check_out   = $checkOutArr[1] . '/' . $checkOutArr[0] . '/' . $checkOutArr[2];
+    $checkOutArr = explode('-', $checkOut);
+    $check_out   = $checkOutArr[1] . '/' . $checkOutArr[0] . '/' . $checkOutArr[2];
     
-    // $rooms       = $rooms;
-    // $persons     = $persons;
-    // $location_id = trim(strip_tags($location_id));    
+    $rooms       = $rooms;
+    $persons     = $persons;
+    $location_id = trim(strip_tags($location_id));    
 
     // $client               = new Client();
     // $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
@@ -70,10 +70,9 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     //         });
     //     }';
     $content['footer_script']   = $foot_script;
-    //$content['hotel_list']      = $hotel_list;
     $data['pagename']           = $location_slug;
     $data['body'][]             = View::do_fetch(VIEW_PATH . 'destination/index.php', $content);
-    View::do_dump(VIEW_PATH . 'layouts/layout-grid.php', $data);    
+    View::do_dump(VIEW_PATH . 'layouts/layout-lumen.php', $data);    
 }
 
 function merge_location_avaliable($location_result,$avaliable_room_arr){
