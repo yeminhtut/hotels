@@ -1,9 +1,10 @@
 <?php
 function _search_new()
 {    
-    $loc             = $_POST['where'];
-    $loc_arr = explode(',', $loc);
-    $location_name = $loc_arr[0];
+    $loc               = $_POST['where'];
+    $loc_arr           = explode(',', $loc);
+    $location_name     = $loc_arr[0];
+    $location_name     = strtolower(str_replace(' ', '-', $location_name));
     $check_in          = date("d-m-Y", strtotime($_POST['check-in-date']));
     $check_out         = date("d-m-Y", strtotime($_POST['check-out-date']));
     // if (empty($where) || $check_out<$check_in || $check_in=='01-01-1970' ) {

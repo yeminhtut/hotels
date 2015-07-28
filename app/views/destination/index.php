@@ -1,3 +1,4 @@
+<?php// include('C:\xampp\htdocs\hotels\web\caching.php') ?>
 <div class="row" id="avaliable-list">
   <div id="image" style="background:#FFF;height:400px;width:100%;text-align:center;">
     <img src="http://localhost/hotels/web/img/ajax-loader.gif" height="14px;" width="256px;" style="margin-top:200px;">
@@ -16,17 +17,16 @@
 <ul class="hotel-list" style="display:none;"></ul>
 <div id="status" style="display:none;"></div>
 <script type="text/javascript" src="http://localhost/hotels/web/js/hotel-listing.js"></script>
-<script type="text/javascript" src="http://localhost/hotels/web/js/collapse.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-    load_select(0); 
-    $('.collapse').collapse(); 
+    load_select(0);    
 });
-
 <?= $footer_script; ?>
 </script>
-
 <style type="text/css">
+.tab-details-item{margin-right: 10px;}
+.tab-content{display: none;}
+.hotel_content{margin-bottom: 10px;}
 .collapse-expand{margin-right: 10px;}
 .best_deal{  position: absolute;
   background-color: #da4453;
