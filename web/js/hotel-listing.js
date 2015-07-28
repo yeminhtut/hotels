@@ -147,18 +147,23 @@ function hotel_listing_view(j, item) {
     var item_name = '<h3 class="link-title">' + item.name + '</h3>';
 
     var detail_tabs = '<ul class="tab-list">\
-                      <li class="btn btn-default tab-details-item content-hide" data-id="' + hotel_id + '" data-link="details' + hotel_id + '" onclick="show_hide_fn(this)">Details</li>\
+                      <li class="btn btn-default tab-details-item content-hide" data-id="' + hotel_id + '" data-link="details' + hotel_id + '" onclick="show_hide_fn(this)">\
+                      Details</li>\
                       <li class="btn btn-default tab-details-item content-hide" data-id="' + hotel_id + '" data-link="map' + hotel_id + '" onclick="show_hide_fn(this)">Map</li>\
+                      <li class="btn btn-default tab-details-item content-hide" data-id="' + hotel_id + '" data-link="rates' + hotel_id + '" onclick="show_hide_fn(this)">View more rates</li>\
                       </ul>';
     var item_details = '<div class="tab-content" id="details' + hotel_id + '">' + item.description + '</div>';
 
 
     var map_div = '<div class="tab-content" id="map' + hotel_id + '">map</div>';
 
+    var rates_div = '<div class="tab-content" id="rates' + hotel_id + '">rates</div>';
+
     var item_price_div = '<div class="price-title"><h3>' + original_price + '<span>S$' + hotel_price + '</span><span>/per night</span></h3><button type="submit" class="btn green-btn">Enquiry</button></div>';
     var item_content = '<div class="col-lg-6 col-md-6 col-sm-6"><div class="hotel_content">' + item_name + '<span class="glyphicon glyphicon-map-marker"></span><span>' + item.address + '</span></div>' + detail_tabs + '</div>';
 
-    newhtml = '<li class="hotel-row ' + j + '" data-price="' + hotel_price + '" data-best-price="' + best_price + '">' + thumbnail_div + '' + item_content + ''+item_price_div+'<div class="clear"></div>' + item_details + '' + map_div + '<div id="' + hotel_id + 'panel" style="margin-top:10px;padding:10px;"></div></li>'
+    newhtml = '<li class="hotel-row ' + j + '" data-price="' + hotel_price + '" data-best-price="' + best_price + '">' + thumbnail_div + '' + item_content + ''+item_price_div+'<div class="clear"></div>'+rates_div+'' + item_details + '' + map_div + '\
+                <div id="' + hotel_id + 'panel" style="margin-top:10px;padding:10px;"></div></li>'
     return newhtml;
 }
 

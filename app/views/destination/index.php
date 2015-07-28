@@ -24,6 +24,7 @@ $(document).ready(function(){
 <?= $footer_script; ?>
 </script>
 <style type="text/css">
+.tab-list .glyphicon{margin-left:4px;}
 .tab-details-item{margin-right: 10px;}
 .tab-content{display: none;}
 .hotel_content{margin-bottom: 10px;}
