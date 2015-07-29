@@ -131,42 +131,83 @@ function hotel_listing_view(j, item) {
     var best_price = 0;
     var featured = '';
     var original_price = '';
+    var competitor_provider = '';
+    var price = '<h3><span>S$' + hotel_price + '</span><span>/per night</span></h3>';
     if (comp_price !== null) {
-        var best_price = item.rates.compRates[0]['price'];
-        if (best_price < hotel_price) {
-            var hotel_price = best_price;
-            var original_price = '<span class="ori_price">' + item.rates.packages[0].chargeableRate + '</span>';
+        var competitor = item.rates.compRates[0]['price'];
+        if (competitor > hotel_price) {
+            var competitor_price = '<span class="ori_price">S$' + competitor + '</span>';
+            var hotel_price = item.rates.packages[0].chargeableRate;           
             var featured = '<span class="best_deal">Best deal</span>';
-        } else {
-            best_price = 0;
+            var price = '<h3>' + competitor_price + '<span>S$' + hotel_price + '</span><span>/per night</span></h3>';
+        } 
+        else{
+            competitor = 0;
+        }       
+    }else{
+            competitor = 0;
         };
-    };
+
     var image_src = item.image_details.prefix + '/1' + item.image_details.suffix;
-    var thumbnail_div = '<div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;">' + featured + '<div class="img_list"><img width="180" height="120" src="' + image_src + '" onerror="imgError(this);"></div></div>';
+    var thumbnail_div = '<div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;">' + featured + '<div class="img_list">\
+                        <img width="180" height="120" src="' + image_src + '" onerror="imgError(this);"></div></div>';
 
     var item_name = '<h3 class="link-title">' + item.name + '</h3>';
 
+    //detail//
     var detail_tabs = '<ul class="tab-list">\
                       <li class="btn btn-default tab-details-item content-hide" data-id="' + hotel_id + '" data-link="details' + hotel_id + '" onclick="show_hide_fn(this)">\
                       Details</li>\
                       <li class="btn btn-default tab-details-item content-hide" data-id="' + hotel_id + '" data-link="map' + hotel_id + '" onclick="show_hide_fn(this)">Map</li>\
                       <li class="btn btn-default tab-details-item content-hide" data-id="' + hotel_id + '" data-link="rates' + hotel_id + '" onclick="show_hide_fn(this)">View more rates</li>\
                       </ul>';
-    var item_details = '<div class="tab-content" id="details' + hotel_id + '">' + item.description + '</div>';
+    var amenities_html = '<ul>';
+    
+    var amenities = item.amenities;
+    for (var key in amenities) {
+      if (amenities.hasOwnProperty(key)) {        
+        if (amenities[key] == true) {
+            key = spacey(key);
+            amenities_html += '<li><span class="glyphicon glyphicon-ok-circle"></span><span class="amenities">'+key+'</span></li>';
+        };
+      }
+    }
+    
+    amenities_html += '</ul>'
 
+    var item_details = '<div class="tab-content" id="details' + hotel_id + '">\
+                        <div class="col-md-8">' + item.description +'</div>\
+                        <div class="col-md-4">' + amenities_html +'</div><div class="clear"></div></div>';
 
+   
     var map_div = '<div class="tab-content" id="map' + hotel_id + '">map</div>';
 
-    var rates_div = '<div class="tab-content" id="rates' + hotel_id + '">rates</div>';
+    //room rates//
+    var room_items = item.rates.packages;
+    
+    var ratehtml = '<thead><tr><th>Room Type</th><th>Rate</th><th></th></tr></thead><tbody>';
+    $.each(room_items, function(i, room_items) {                    
+                        ratehtml += '<tr><td>'+room_items.roomDescription+'</td><td>S$'+room_items.chargeableRate+'</td><td class="price_td">\
+                                    <button type="submit" class="btn btn-danger" data-roomKey="'+room_items.key+'">Go</button></td></tr>';              
+                });
+    ratehtml += '</tbody>';
 
-    var item_price_div = '<div class="price-title"><h3>' + original_price + '<span>S$' + hotel_price + '</span><span>/per night</span></h3><button type="submit" class="btn green-btn">Enquiry</button></div>';
-    var item_content = '<div class="col-lg-6 col-md-6 col-sm-6"><div class="hotel_content">' + item_name + '<span class="glyphicon glyphicon-map-marker"></span><span>' + item.address + '</span></div>' + detail_tabs + '</div>';
+    var rates_div = '<div class="tab-content" id="rates' + hotel_id + '"><table class="table">'+ratehtml+'</table></div>';
 
-    newhtml = '<li class="hotel-row ' + j + '" data-price="' + hotel_price + '" data-best-price="' + best_price + '">' + thumbnail_div + '' + item_content + ''+item_price_div+'<div class="clear"></div>'+rates_div+'' + item_details + '' + map_div + '\
+    //price//
+    var item_price_div = '<div class="price-title">'+price+'<a  class="btn green-btn">Enquiry</a></div>';
+
+    var item_content = '<div class="col-lg-6 col-md-6 col-sm-6"><div class="hotel_content">' + item_name + '<span class="glyphicon glyphicon-map-marker"></span>\
+                        <span>' + item.address + '</span></div>' + detail_tabs + '</div>';
+    newhtml = '<li class="hotel-row ' + j + '" data-price="' + hotel_price + '" data-best-price="' + competitor + '">' + thumbnail_div + '' + item_content + ''+item_price_div+'<div class="clear"></div>'+rates_div+'' + item_details + '' + map_div + '\
                 <div id="' + hotel_id + 'panel" style="margin-top:10px;padding:10px;"></div></li>'
     return newhtml;
 }
 
+function spacey(str) {  
+    return str.substring(0, 1) +
+           str.substring(1).replace(/([a-z])?([A-Z])/g, "$1 $2");
+}
 
 function show_hide_fn(element) {
     var target = $(element).attr("data-link");
@@ -186,3 +227,6 @@ function show_hide_fn(element) {
 function close_fn() {
     $("#hotel_detail_content").empty();
 }
+
+
+
