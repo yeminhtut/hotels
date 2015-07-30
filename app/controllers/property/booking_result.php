@@ -2,6 +2,8 @@
 use GuzzleHttp\Client; 
 	function _booking_result(){
 
+		var_dump($_POST);exit;
+
 		// $booking_key = $_POST['booking_key'];
 		// $salutation = $_POST['salutation'];
 		// $first_name = $_POST['first_name'];

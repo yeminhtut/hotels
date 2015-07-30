@@ -133,20 +133,16 @@ function hotel_listing_view(j, item) {
     var original_price = '';
     var competitor_provider = '';
     var price = '<h3><span>S$' + hotel_price + '</span><span>/per night</span></h3>';
+    var competitor = 0;
     if (comp_price !== null) {
-        var competitor = item.rates.compRates[0]['price'];
-        if (competitor > hotel_price) {
+        if (item.rates.compRates[0]['price'] > hotel_price) {
+            competitor = item.rates.compRates[0]['price'];
             var competitor_price = '<span class="ori_price">S$' + competitor + '</span>';
             var hotel_price = item.rates.packages[0].chargeableRate;           
             var featured = '<span class="best_deal">Best deal</span>';
             var price = '<h3>' + competitor_price + '<span>S$' + hotel_price + '</span><span>/per night</span></h3>';
-        } 
-        else{
-            competitor = 0;
-        }       
-    }else{
-            competitor = 0;
-        };
+        }             
+    };
 
     var image_src = item.image_details.prefix + '/1' + item.image_details.suffix;
     var thumbnail_div = '<div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;">' + featured + '<div class="img_list">\
@@ -193,7 +189,10 @@ function hotel_listing_view(j, item) {
     ratehtml += '</tbody>';
 
     var rates_div = '<div class="tab-content" id="rates' + hotel_id + '"><table class="table">'+ratehtml+'</table></div>';
-
+    //star rating//
+    // for (i = 0; i < item.rating; i++) { 
+    //     var rating += '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>';
+    // }
     //price//
     var item_price_div = '<div class="price-title">'+price+'<a  class="btn green-btn">Enquiry</a></div>';
 
