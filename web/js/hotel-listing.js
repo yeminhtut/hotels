@@ -184,7 +184,7 @@ function hotel_listing_view(j, item) {
     var ratehtml = '<thead><tr><th>Room Type</th><th>Rate</th><th></th></tr></thead><tbody>';
     $.each(room_items, function(i, room_items) {                    
                         ratehtml += '<tr><td>'+room_items.roomDescription+'</td><td>S$'+room_items.chargeableRate+'</td><td class="price_td">\
-                                    <button type="submit" class="btn btn-danger" data-roomKey="'+room_items.key+'">Go</button></td></tr>';              
+                                    <a href="http://localhost/hotels/property/booking/'+room_items.key+'" class="btn btn-danger" data-roomKey="'+room_items.key+'">Go</a></td></tr>';              
                 });
     ratehtml += '</tbody>';
 

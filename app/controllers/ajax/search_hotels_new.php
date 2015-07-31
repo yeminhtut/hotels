@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');  
 use GuzzleHttp\Client;
 function _search_hotels_new()
 {

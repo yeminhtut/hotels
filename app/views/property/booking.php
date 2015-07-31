@@ -71,7 +71,7 @@
                         <?php	}
                            ?>
                      </select>
-                     <input class="form-control" type="hidden" id="formGroupInputSmall" name="credit_card" value="credit_card">
+                     
                   </div>
                </div>
                <div class="form-group">
