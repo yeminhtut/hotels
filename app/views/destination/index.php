@@ -24,6 +24,9 @@ $(document).ready(function(){
 <?= $footer_script; ?>
 </script>
 <style type="text/css">
+#rating{
+  margin:10px 0px 10px 0px;
+}
 .amenities{text-transform: capitalize;margin-left:6px;}
 .price_td{text-align: right;}
 .tab-list .glyphicon{margin-left:4px;}

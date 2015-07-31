@@ -184,19 +184,20 @@ function hotel_listing_view(j, item) {
     var ratehtml = '<thead><tr><th>Room Type</th><th>Rate</th><th></th></tr></thead><tbody>';
     $.each(room_items, function(i, room_items) {                    
                         ratehtml += '<tr><td>'+room_items.roomDescription+'</td><td>S$'+room_items.chargeableRate+'</td><td class="price_td">\
-                                    <a href="http://localhost/hotels/property/booking/'+room_items.key+'" class="btn btn-danger" data-roomKey="'+room_items.key+'">Go</a></td></tr>';              
+                                    <a href="http://localhost/hotels/property/booking/'+room_items.key+'" class="btn btn-danger" data-roomKey="'+room_items.key+'" target="_blank">Go</a></td></tr>';              
                 });
     ratehtml += '</tbody>';
 
     var rates_div = '<div class="tab-content" id="rates' + hotel_id + '"><table class="table">'+ratehtml+'</table></div>';
     //star rating//
-    // for (i = 0; i < item.rating; i++) { 
-    //     var rating += '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>';
-    // }
+    var rating = '';
+    for (i = 0; i < item.rating; i++) { 
+        rating += '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>';
+    }
     //price//
     var item_price_div = '<div class="price-title">'+price+'<a  class="btn green-btn">Enquiry</a></div>';
 
-    var item_content = '<div class="col-lg-6 col-md-6 col-sm-6"><div class="hotel_content">' + item_name + '<span class="glyphicon glyphicon-map-marker"></span>\
+    var item_content = '<div class="col-lg-6 col-md-6 col-sm-6"><div class="hotel_content">' + item_name + '<div id="rating">'+rating+'</div><span class="glyphicon glyphicon-map-marker"></span>\
                         <span>' + item.address + '</span></div>' + detail_tabs + '</div>';
     newhtml = '<li class="hotel-row ' + j + '" data-price="' + hotel_price + '" data-best-price="' + competitor + '">' + thumbnail_div + '' + item_content + ''+item_price_div+'<div class="clear"></div>'+rates_div+'' + item_details + '' + map_div + '\
                 <div id="' + hotel_id + 'panel" style="margin-top:10px;padding:10px;"></div></li>'
