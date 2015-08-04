@@ -1,4 +1,4 @@
-<?php// include('C:\xampp\htdocs\hotels\web\caching.php') ?>
+<?php// var_dump($_SESSION); ?>
 <div class="row" id="avaliable-list">
   <div id="image" style="background:#FFF;height:400px;width:100%;text-align:center;">
     <img src="http://localhost/hotels/web/img/ajax-loader.gif" height="14px;" width="256px;" style="margin-top:200px;">
@@ -16,7 +16,7 @@
 <div class="clear"></div>
 <ul class="hotel-list" style="display:none;"></ul>
 <div id="status" style="display:none;"></div>
-<script type="text/javascript" src="http://localhost/hotels/web/js/hotel-listing.js"></script>
+<script type="text/javascript" src="/hotels/web/js/hotel-listing.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     load_select(0);    

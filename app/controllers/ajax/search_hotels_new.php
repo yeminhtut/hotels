@@ -26,14 +26,14 @@ function _search_hotels_new()
     // $query['timeout']     = rand(1, 10);
     // $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
     
-    $response             = $client->get('http://api.zumata.com/search?destination=c35b1149-4336-4065-76c4-0afbbe495b5c&checkin=08/22/2015&checkout=08/23/2015&lang=en_US&rooms=1&adults=1&currency=SGD&timeout=0&api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P');
+    $response             = $client->get('http://api.zumata.com/search?destination=1b6d1de9-c0db-438d-53a9-428b140f57b9&checkin=08/22/2015&checkout=08/23/2015&lang=en_US&rooms=1&adults=1&currency=SGD&timeout=0&api_key=rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P');
     $result               = $response->json();    
     $search_completed     = array("search_completed"=> $result['searchCompleted']);
     $avaliable_room_arr   = $result['content']['hotels'];
 
     $hotel_rooms = array();
     if (count($avaliable_room_arr) > 0) {
-      $loc_response = $client->get('http://data.zumata.com/destinations/c35b1149-4336-4065-76c4-0afbbe495b5c/en_US/short.json');
+      $loc_response = $client->get('http://data.zumata.com/destinations/1b6d1de9-c0db-438d-53a9-428b140f57b9/en_US/long.json');
       $location_result   = $loc_response->json();
       $hotel_rooms = merge_location_avaliable($location_result,$avaliable_room_arr);
       $hotel_list = array('hotels'=>$hotel_rooms);
@@ -42,7 +42,6 @@ function _search_hotels_new()
     }
     echo json_encode($hotel_list_arr);exit;
 
-    echo json_encode($hotel_rooms);
 }
 
 function merge_location_avaliable($location_result,$avaliable_room_arr){

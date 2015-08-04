@@ -1,6 +1,10 @@
 {
     "require": {
         "guzzlehttp/guzzle": "~5.3",
-        "phpmailer/phpmailer": "~5.2"
+        "phpmailer/phpmailer": "~5.2",
+        "php": ">=5.3.0",
+	    "ext-curl": "*",
+	    "ext-json": "*",
+	    "paypal/rest-api-sdk-php" : "0.5.*"
     }
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">
+  <head>
+    <link rel="stylesheet" type="text/css" href="http://localhost/hotels/css/bootstrap.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body class="list-group">
+    <div id="wrapper"  ng-controller="StoreController as store">
+          <div class="container-fluid">
+      <div class="row" ng-repeat="hotel in store.hotels">
+        <div class="col-md-4"><img ng-src="{{hotel.image_details.prefix}}/1{{hotel.image_details.suffix}}" width="180px;" height="120px"/>  </div>
+        <div class="col-md-4">
+          <h3>{{hotel.name}}</h3>
+            <section class="tab" ng-controller="TabController as tab">
+              <ul class="nav nav-pills">
+                <li ng-class="{ active: tab.isSet(1) }">
+                  <a href ng-click="tab.setTab(1)">Description</a></li>
+                <li ng-class="{ active: tab.isSet(2) }">
+                  <a href ng-click="tab.setTab(2)">Map</a>
+                </li>
+                <li ng-class="{ active: tab.isSet(3) }">
+                  <a href ng-click="tab.setTab(3)">Rates</a>
+                </li>
+              </ul>
+            <div ng-show="tab.isSet(1)">
+              <h4>Description</h4>
+              <div>{{hotel.description}}</div>
+            </div>
+            <div ng-show="tab.isSet(2)">
+              <h4>Map</h4>
+              <div>{{hotel.latitude}}{{hotel.longitude}}</div>
+            </div>
+            <div ng-show="tab.isSet(3)">
+              <h4>Rates</h4>
+              <table class="table">
+                <thead><tr><th>Room Type</th><th>Rate</th><th></th></tr></thead>
+                <tbody>
+                  <tr ng-repeat="package in hotel.rates.packages"><td>{{package.normalizedRoomDescription}}</td><td>{{package.chargeableRate | currency}}</td></tr>
+                </tbody>
+              </table>              
+            </div>
+            </section>
+        </div>
+        <div class="col-md-4"><em class="pull-right">{{hotel.rates.packages[0].chargeableRate | currency}}</em></div>
+      </div>
+    </div>
+
+    </div>
+    <div ng-controller="HotelController as property"></div>
+<style type="text/css">
+.row{
+    border-bottom: 1px solid #EBEBEB;
+    margin-bottom: 10px;
+}
+</style>
+  </body>
+</html>

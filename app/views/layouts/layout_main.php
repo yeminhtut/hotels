@@ -16,7 +16,7 @@ $foot[]=getjAlert();
 <script type="text/javascript" src="<?=myUrl('/js/dateformat.js')?>"></script>
 <script type="text/javascript" src="<?=myUrl('/js/validator.js')?>"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="http://magdev.tripzilla.com/ajax/js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="<?=myUrl('/web/js/jquery.backstretch.min.js')?>"></script>
 <style type="text/css">
   @import "<?=myUrl('/css/datepicker3.min.css')?>";
   @import "<?=myUrl('/css/main.css')?>";
@@ -55,11 +55,7 @@ $foot[]=getjAlert();
   </div>
 
 <?=(isset($foot) && is_array($foot)) ? implode("\n",$foot) : ''?>
-<script type="text/javascript">
-  $(document).ready(function(){
-  //  $("#main-search-wrapper").backstretch("http://localhost/hotels/web/img/slide_hero.jpg");
-  })
-</script>
+<script type="text/javascript" src="<?=myUrl('/web/js/main/main.js')?>"></script>
 <style type="text/css">
   #main-search-wrapper{min-height: 480px;}
 </style>

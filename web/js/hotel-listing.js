@@ -45,7 +45,7 @@ function sort_by_best_deals() {
 
 function imgError(image) {
     image.onerror = "";
-    image.src = "http://localhost/hotels/web/img/default.png";
+    image.src = "/hotels/web/img/default.png";
     return true;
 }
 
@@ -61,7 +61,7 @@ function load_select() {
     var newhtml = '';
     $.ajax({
         type: "POST",
-        url: "http://localhost/hotels/ajax/search_hotels",
+        url: "/hotels/ajax/search_hotels",
         dataType: 'json',
         data: {
             destination: destination,
@@ -73,7 +73,6 @@ function load_select() {
         success: function(response) {
             console.log(response);
             var response_count = Object.keys(response).length;
-            //console.log('response count is ' + response_count);
             var count = 0;
             if (response_count > 0) {
                 var search_complete = response.search_completed;
