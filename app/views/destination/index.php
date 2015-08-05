@@ -45,6 +45,7 @@ $(document).ready(function(){
 #results-bar{display: none;}
 .price-title h3{font-size: 20px;}
 .price-title span{font-size: 16px;}
-.thumb{border-radius: 6px}.link-title{font-size: 20px;color: #4b4b4c;font-weight: bold;margin-top:0px;}.hotel_address{color:#898989}#avaliable-list{margin: 0px;margin-top:-4px}.price_list{display: table;font-size: 22px;color: #e74c3c;width: 100%;margin-left: -15px}.price_list small{font-size: 10px}
+.thumb{border-radius: 6px}
+.title{font-size: 20px;color: #4b4b4c;font-weight: bold;margin-top:0px;}.hotel_address{color:#898989}#avaliable-list{margin: 0px;margin-top:-4px}.price_list{display: table;font-size: 22px;color: #e74c3c;width: 100%;margin-left: -15px}.price_list small{font-size: 10px}
 </style>
  

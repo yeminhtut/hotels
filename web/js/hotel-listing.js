@@ -1,5 +1,12 @@
 var time = 0;
 var newhtml = '';
+var cur_url = window.location.href;
+var parse_arr = cur_url.split("/");
+var destination = parse_arr[5];
+var checkin = parse_arr[7];
+var checkout = parse_arr[8];
+var persons = parse_arr[9];
+var rooms = parse_arr[10];
 
 //Sorting//
 
@@ -51,13 +58,7 @@ function imgError(image) {
 
 
 function load_select() {
-    var cur_url = window.location.href;
-    var parse_arr = cur_url.split("/");
-    var destination = parse_arr[5];
-    var checkin = parse_arr[7];
-    var checkout = parse_arr[8];
-    var persons = parse_arr[9];
-    var rooms = parse_arr[10];
+
     var newhtml = '';
     $.ajax({
         type: "POST",
@@ -145,9 +146,9 @@ function hotel_listing_view(j, item) {
 
     var image_src = item.image_details.prefix + '/1' + item.image_details.suffix;
     var thumbnail_div = '<div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;">' + featured + '<div class="img_list">\
-                        <img width="180" height="120" src="' + image_src + '" onerror="imgError(this);"></div></div>';
+                        <img id="' + hotel_id + 'img" width="180" height="120" src="' + image_src + '" onerror="imgError(this);"></div></div>';
 
-    var item_name = '<h3 class="link-title">' + item.name + '</h3>';
+    var item_name = '<h3 class="title" id="'+hotel_id+'title">' + item.name + '</h3>';
 
     //detail//
     var detail_tabs = '<ul class="tab-list">\
@@ -182,9 +183,10 @@ function hotel_listing_view(j, item) {
     
     var ratehtml = '<thead><tr><th>Room Type</th><th>Rate</th><th></th></tr></thead><tbody>';
     $.each(room_items, function(i, room_items) {                    
-                        ratehtml += '<tr><td>'+room_items.roomDescription+'</td><td>S$'+room_items.chargeableRate+'</td><td class="price_td">\
-                                    <a href="http://localhost/hotels/property/booking/'+room_items.key+'" class="btn btn-danger" data-roomKey="'+room_items.key+'" target="_blank">Go</a></td></tr>';              
+                        ratehtml += '<tr data-price="'+room_items.chargeableRate+'"><td id="'+room_items.key+'des">'+room_items.roomDescription+'</td><td>S$'+room_items.chargeableRate+'</td><td class="price_td">\
+                                    <button class="btn btn-danger" data-roomKey="'+room_items.key+'" target="_blank" onclick="book_hotel(this)">Go</button></td></tr>';              
                 });
+    //http://localhost/hotels/property/booking/'+room_items.key+'
     ratehtml += '</tbody>';
 
     var rates_div = '<div class="tab-content" id="rates' + hotel_id + '"><table class="table">'+ratehtml+'</table></div>';
@@ -198,7 +200,7 @@ function hotel_listing_view(j, item) {
 
     var item_content = '<div class="col-lg-6 col-md-6 col-sm-6"><div class="hotel_content">' + item_name + '<div id="rating">'+rating+'</div><span class="glyphicon glyphicon-map-marker"></span>\
                         <span>' + item.address + '</span></div>' + detail_tabs + '</div>';
-    newhtml = '<li class="hotel-row ' + j + '" data-price="' + hotel_price + '" data-best-price="' + competitor + '">' + thumbnail_div + '' + item_content + ''+item_price_div+'<div class="clear"></div>'+rates_div+'' + item_details + '' + map_div + '\
+    newhtml = '<li id="'+hotel_id+'" class="hotel-row ' + j + '" data-price="' + hotel_price + '" data-best-price="' + competitor + '">' + thumbnail_div + '' + item_content + ''+item_price_div+'<div class="clear"></div>'+rates_div+'' + item_details + '' + map_div + '\
                 <div id="' + hotel_id + 'panel" style="margin-top:10px;padding:10px;"></div></li>'
     return newhtml;
 }
@@ -225,6 +227,35 @@ function show_hide_fn(element) {
 
 function close_fn() {
     $("#hotel_detail_content").empty();
+}
+
+function book_hotel(element){
+    var room_key = $(element).attr("data-roomKey");
+    var room_des = $("#" +room_key+'des').text();
+    var price = $(element).parent().parent().attr('data-price');
+    var hotel_id = $(element).closest( "div" ).attr('id').replace('panel','');
+    var hotel_name = $("#" +hotel_id+'title').text();
+    var hotel_img =   $("#" +hotel_id+'img').attr('src'); 
+    console.log(room_des);
+        $.ajax({
+        type: "POST",
+        url: "/hotels/ajax/insert_hotels_temp",
+        dataType: 'json',
+        data: {
+            room_key: room_key,
+            room_des: room_des,
+            price: price,
+            hotel_id: hotel_id,
+            hotel_img: hotel_img,
+            hotel_name: hotel_name
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        complete: function() {
+            console.log('room inserted complete');
+        }
+    });
 }
 
 

@@ -12,31 +12,6 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     $persons     = $persons;
     $location_id = trim(strip_tags($location_id));    
 
-    // $client               = new Client();
-    // $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
-    // $query                = $request->getQuery();
-    // $query['destination'] = $location_id;
-    // $query['checkin']     = str_replace('%2F', '/', $check_in);
-    // $query['checkout']    = str_replace('%2F', '/', $check_out);
-    // $query['lang']        = 'en_US';
-    // $query['rooms']       = $rooms;
-    // $query['adults']      = $persons;
-    // $query['currency']    = 'SGD';
-    // $query['timeout']     = rand(1, 10);
-    // $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    // echo $request->getUrl();exit;
-    // $response             = $client->get($request->getUrl());
-    // $result               = $response->json();
-    // $avaliable_room_arr   = $result['content']['hotels'];
-
-    // $loc_response = $client->get('http://data.zumata.com/destinations/' . $location_id . '/en_US/long.json');
-    // $location_result   = $loc_response->json();
-    
-    // $hotel_rooms = merge_location_avaliable($location_result,$avaliable_room_arr);
-    // $hotel_list = make_avaliable_room_html($hotel_rooms);
-
-
-
     // $foot_script = '
     //     var time = 0;
     //     function load_select() {
@@ -72,7 +47,12 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     $content['footer_script']   = $foot_script;
     $data['pagename']           = $location_slug;
     $data['body'][]             = View::do_fetch(VIEW_PATH . 'destination/index.php', $content);
-    View::do_dump(VIEW_PATH . 'layouts/layout-lumen.php', $data);    
+    View::do_dump(VIEW_PATH . 'layouts/layout-lumen.php', $data); 
+    //Angular view//
+    // $content['footer_script']   = $foot_script;
+    // $data['pagename']           = $location_slug;
+    // $data['body'][]             = View::do_fetch(VIEW_PATH . 'destination/angular_index.php', $content);
+    // View::do_dump(VIEW_PATH . 'layouts/layout-angular.php', $data);   
 }
 
 function merge_location_avaliable($location_result,$avaliable_room_arr){

@@ -54,6 +54,9 @@ class Controller extends KISS_Controller
             if (isset($p[2]) && $p[2] == 'retrieve_destinations') {
                 $this->action = 'retrieve_destinations';
             }
+            if (isset($p[2]) && $p[2] == 'insert_hotels_temp') {
+                $this->action = 'insert_hotels_temp';
+            }
         }
 
         //Routing scraper

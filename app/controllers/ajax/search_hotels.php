@@ -2,7 +2,9 @@
 use GuzzleHttp\Client;
 function _search_hotels()
 {
-    
+    if (empty($_POST)) {
+      echo 'bye bye';exit;
+    }
     $checkInArr = explode('-', $_POST['checkin']);
     $check_in   = $checkInArr[1] . '/' . $checkInArr[0] . '/' . $checkInArr[2];
     

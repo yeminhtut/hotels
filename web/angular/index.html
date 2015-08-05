@@ -47,7 +47,11 @@
     </div>
 
     </div>
-    <div ng-controller="HotelController as property"></div>
+    <div ng-controller="HotelController as property">
+      <div class="row" ng-repeat="hotel in property.details">
+        {{details.address}}
+      </div>
+    </div>
 <style type="text/css">
 .row{
     border-bottom: 1px solid #EBEBEB;

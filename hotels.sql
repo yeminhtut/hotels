@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2015 at 11:32 AM
+-- Generation Time: Aug 05, 2015 at 12:14 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,6 +19,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `hotels`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `booking_temp`
+--
+
+CREATE TABLE IF NOT EXISTS `booking_temp` (
+`id` int(11) NOT NULL,
+  `hotel_name` varchar(255) NOT NULL,
+  `room_key` varchar(255) NOT NULL,
+  `room_des` varchar(255) NOT NULL,
+  `price` float NOT NULL,
+  `hotel_id` varchar(255) NOT NULL,
+  `hotel_img` varchar(255) NOT NULL,
+  `created_dt` date NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `booking_temp`
+--
+
+INSERT INTO `booking_temp` (`id`, `hotel_name`, `room_key`, `room_des`, `price`, `hotel_id`, `hotel_img`, `created_dt`) VALUES
+(1, 'Hotel By The Red Canal', 'dd70dfb8ebb29fe2', 'Standard Room (Rakhine) - Continental Breakfast', 204.37, '8d6514d9-8c0b-4497-7cd6-e5f861623c55', 'https://s3-ap-southeast-1.amazonaws.com/zumata/assets/hotels/2.0/8d6514d9-8c0b-4497-7cd6-e5f861623c55/images/1.jpg', '2015-08-05');
 
 -- --------------------------------------------------------
 
@@ -3278,6 +3302,12 @@ INSERT INTO `t_property_amenities` (`id`, `zumata_id`, `amenities`, `created_dt`
 --
 
 --
+-- Indexes for table `booking_temp`
+--
+ALTER TABLE `booking_temp`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `t_booking_info`
 --
 ALTER TABLE `t_booking_info`
@@ -3305,6 +3335,11 @@ ALTER TABLE `t_property_amenities`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `booking_temp`
+--
+ALTER TABLE `booking_temp`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `t_booking_info`
 --
