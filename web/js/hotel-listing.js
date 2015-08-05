@@ -251,9 +251,9 @@ function book_hotel(element){
         },
         success: function(response) {
             console.log(response);
-        },
-        complete: function() {
-            console.log('room inserted complete');
+            if (response > 0) {
+                window.location.href = "http://localhost/hotels/property/booking/"+room_key;
+            };
         }
     });
 }
