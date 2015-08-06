@@ -8,7 +8,11 @@ class Booking_Temp extends Model {
     $this->rs['price']='';
     $this->rs['hotel_id']='';
     $this->rs['hotel_img']='';
-    $this->rs['hotel_name']='';    
+    $this->rs['hotel_name']='';  
+    $this->rs['persons']='';
+    $this->rs['rooms']='';
+    $this->rs['check_in']='0000-00-00 00:00:00';
+    $this->rs['check_out']='0000-00-00 00:00:00';  
     $this->rs['created_dt']='0000-00-00 00:00:00'; 
     
     if ($id)

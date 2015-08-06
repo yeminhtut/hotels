@@ -113,17 +113,59 @@
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary" style="width:150px;">Book</button>
+
                   </div>
               </div>
             </li>
          </ul>
       </form>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="QVTVNNC6YHNRU">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+      </form>
+
    </div>
    <!--end of booking-info -->
-   <div class="col-md-4"></div>
-</div>
+   <div class="col-md-4">
+    <h3>Booking Summary</h3>
+        <div class="summary_section">            
+            <img src="<?= $booking_summary->hotel_img;?>" style="margin-top:10px;">
+            <h3><?= $booking_summary->hotel_name;?></h3>
+            <p><?= $booking_summary->room_des;?></p>
+        </div>
+        
+        <div class="summary_section">
+           <table class="table"> 
+              <tr>                
+                <td><strong>Rooms</strong></td>
+                <td><?= $booking_summary->rooms;?></td>
+              </tr>
+              <tr>                
+                <td><strong>Persons</strong></td>
+                <td><?= $booking_summary->persons;?></td>
+              </tr>           
+              <tr>                
+                <td><strong>Check-in</strong></td>
+                <td><?= $booking_summary->check_in;?></td>
+              </tr>
+              <tr>                
+                <td><strong>Check-out</strong></td>
+                <td><?= $booking_summary->check_out;?></td>
+              </tr>
 
+              <tr>                
+                <td><strong>Total</strong></td>
+                <td>S$<?= $booking_summary->price;?></td>
+              </tr>            
+          </table>  
+        </div>         
+   </div>
+</div>
 <style type="text/css">
+.summary_section{border-top:1px solid #aab2bd;}
+.summary_section td{padding-left: 0px !important;}
 #form-booking li:not(:last-child){
   border-bottom: 1px solid #EBEBEB;
 }

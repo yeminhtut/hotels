@@ -236,18 +236,28 @@ function book_hotel(element){
     var hotel_id = $(element).closest( "div" ).attr('id').replace('panel','');
     var hotel_name = $("#" +hotel_id+'title').text();
     var hotel_img =   $("#" +hotel_id+'img').attr('src'); 
-    console.log(room_des);
-        $.ajax({
+    var cur_url = window.location.href;
+    var parse_arr = cur_url.split("/");    
+    var checkin = parse_arr[7];
+    var checkout = parse_arr[8];
+    var persons = parse_arr[9];
+    var rooms = parse_arr[10];
+    $.ajax({
         type: "POST",
         url: "/hotels/ajax/insert_hotels_temp",
         dataType: 'json',
+        cache: false,
         data: {
+            checkin: checkin,
+            checkout: checkout,
+            persons: persons,
+            rooms: rooms,
             room_key: room_key,
             room_des: room_des,
             price: price,
             hotel_id: hotel_id,
             hotel_img: hotel_img,
-            hotel_name: hotel_name
+            hotel_name: hotel_name           
         },
         success: function(response) {
             console.log(response);
