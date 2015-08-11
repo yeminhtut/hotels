@@ -1,15 +1,17 @@
 <?php 
 function _insert_hotels_temp() {
-    
+
     $room_key = $_POST['room_key'];
     $room_des = $_POST['room_des'];
     $price = $_POST['price'];
     $hotel_id = $_POST['hotel_id'];
     $hotel_img = $_POST['hotel_img'];
-    $hotel_name = $_POST['hotel_name'];    
-    $checkinDate = DateTime::createFromFormat('d-m-Y', $_POST['checkin']);
+    $hotel_name = $_POST['hotel_name'];
+    
+    $checkinDate = DateTime::createFromFormat('m/d/Y', $_POST['checkin']);
     $check_in =  $checkinDate->format('Y-m-d');
-    $checkoutDate = DateTime::createFromFormat('d-m-Y', $_POST['checkout']);
+       
+    $checkoutDate = DateTime::createFromFormat('m/d/Y', $_POST['checkout']);
     $check_out =  $checkoutDate->format('Y-m-d');    
     $persons = $_POST['persons'];
     $rooms = $_POST['rooms'];

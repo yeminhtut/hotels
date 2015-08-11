@@ -7,10 +7,9 @@
               dataType: 'json',
               type: 'POST',
               data: request,
-              success: function(data){
-                console.log(data);
+              success: function(data){                
                   response(data);                
-            }
+              }
             });
           },
           minLength: 2,
@@ -60,22 +59,36 @@
         startDate: checkInStart,
         autoclose: true
     });
-    $('#datepicker').change(function() {
-        var changedate = $('#datepicker').val();
+    // $('#datepicker').change(function() {
+    //     var changedate = $('#datepicker').val();
+    //     var myDate = new Date(changedate);
+    //     var checkout = myDate.setDate(myDate.getDate() + 1);
+    //     var time = 1435334400000;
+    //     var date = new Date(checkout);
+    //     var t = date.toString("MMMM yyyy");
+    //     var newdate = new Date(t);
+    //     var can = (newdate.getMonth() + 1) + '/' + newdate.getDate() + '/' + newdate.getFullYear();
+    //     $("#datepickerCheckout").removeAttr('disabled');
+    //     $('#datepickerCheckout').datepicker({
+    //         startDate: can,
+    //         autoclose: true,
+
+    //     });
+    // });
+	   
+    $("#from" ).datepicker({ minDate: +7, maxDate: "+1M +10D"});
+    $('#from').change(function() {
+        var changedate = $('#from').val();
         var myDate = new Date(changedate);
-        var checkout = myDate.setDate(myDate.getDate() + 1);
-        var time = 1435334400000;
+        var checkout = myDate.setDate(myDate.getDate() + 1);        
         var date = new Date(checkout);
         var t = date.toString("MMMM yyyy");
         var newdate = new Date(t);
         var can = (newdate.getMonth() + 1) + '/' + newdate.getDate() + '/' + newdate.getFullYear();
-        $("#datepickerCheckout").removeAttr('disabled');
-        $('#datepickerCheckout').datepicker({
-            startDate: can,
-            autoclose: true,
-
-        });
+        console.log(can);
+        $("#to").removeAttr('disabled');
+        $("#to" ).datepicker({ defaultDate: can,minDate: can, maxDate: "+1M +10D"});
     });
-	
+    
 
 })(jQuery);

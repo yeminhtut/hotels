@@ -25,13 +25,7 @@ class Controller extends KISS_Controller
             $this->action     = 'index';
             if (isset($p[2]) && $p[2] == 'search') {
                 $this->action = 'search';
-            }
-            if (isset($p[2]) && $p[2] == 'search_new') {
-                $this->action = 'search_new';
-            }
-            if (isset($p[2]) && $p[2] == 'detail') {
-                $this->action = 'detail';
-            }
+            }            
             if (isset($p[2]) && $p[2] == 'booking') {
                 $this->action = 'booking';
             }
@@ -47,10 +41,7 @@ class Controller extends KISS_Controller
             $this->action     = 'index';
             if (isset($p[2]) && $p[2] == 'search_hotels') {
                 $this->action = 'search_hotels';
-            }
-            if (isset($p[2]) && $p[2] == 'search_hotels_new') {
-                $this->action = 'search_hotels_new';
-            }
+            }            
             if (isset($p[2]) && $p[2] == 'retrieve_destinations') {
                 $this->action = 'retrieve_destinations';
             }
@@ -59,66 +50,14 @@ class Controller extends KISS_Controller
             }
         }
 
-        //Routing scraper
-        if (isset($p[1]) && $p[1] == 'scraper') {
-            $this->controller = 'scraper';            
-            if (isset($p[2]) && $p[2] == 'scraper_kl') {
-                $this->action = 'scraper_kl';
-            }
-            $this->action     = 'index';
-        }
         // Routing destination page
         if (isset($p[1]) && $p[1] == 'destination') {
             $this->controller = 'destination';
-            $this->action     = 'index';
-            if (isset($p[2]) && $p[2] !== '') {
-                $this->action = 'city';
-            }
+            $this->action     = 'index';            
             if (isset($p[5]) && $p[5] !== '') {
                 $this->action = 'country';
             }
-        }
-        // Routing scraper
-        if (isset($p[1]) && $p[1] == 'scraper') {
-            $this->controller = 'scraper';
-            $this->action     = 'index';
-            
-        }
-        
-        //Routing about
-        if (isset($p[1]) && $p[1] == 'about') {
-            $this->controller = 'about';
-            $this->action     = 'index';            
-        }
-
-        //Routing contact
-        if (isset($p[1]) && $p[1] == 'contact') {
-            $this->controller = 'contact';
-            $this->action     = 'index';            
-        }
-        
-        if (isset($p[0]) && $p[0] == 'directory') {
-            $letters          = range('A', 'Z');
-            $letters[]        = '_HEX_';
-            $this->controller = 'directory';
-            if (isset($p[1]) && in_array($p[1], $letters)) {
-                $this->action = 'letter';
-                $this->params = array_slice($p, 1);
-            } elseif (isset($p[1]) && $p[1] == 'review') {
-                $this->action = 'review';
-                $this->params = array_slice($p, 2);
-            } elseif (isset($p[1]) && $p[1] == 'enquire') {
-                $this->action = 'enquire';
-                $this->params = array_slice($p, 2);
-            } elseif (isset($p[1]) && $p[1] == 'enquire_thankyou') {
-                $this->action = 'enquire_thankyou';
-                $this->params = array_slice($p, 2);
-            } else {
-                $this->action = 'index';
-                $this->params = array_slice($p, 1);
-            }
-        }
-        
+        }        
         
         return $this;
     }

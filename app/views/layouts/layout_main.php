@@ -16,13 +16,8 @@ $foot[]=getjAlert();
 <script type="text/javascript" src="<?=myUrl('/js/dateformat.js')?>"></script>
 <script type="text/javascript" src="<?=myUrl('/js/validator.js')?>"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="<?=myUrl('/web/js/jquery.backstretch.min.js')?>"></script>
-<style type="text/css">
-  @import "<?=myUrl('/css/datepicker3.min.css')?>";
-  @import "<?=myUrl('/css/main.css')?>";
-</style>
-
-
+<script type="text/javascript" src="<?=myUrl('/web/js/main/jquery.backstretch.min.js')?>"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <?=(isset($head) && is_array($head)) ? implode("\n",$head) : ''?>
 </head>
 <body style="background-color: rgb(241, 242, 246);">
@@ -56,6 +51,7 @@ $foot[]=getjAlert();
 
 <?=(isset($foot) && is_array($foot)) ? implode("\n",$foot) : ''?>
 <script type="text/javascript" src="<?=myUrl('/web/js/main/main.js')?>"></script>
+<link rel="stylesheet" type="text/css" href="/hotels/web/css/main/jquery-ui.css">
 <style type="text/css">
   #main-search-wrapper{min-height: 480px;}
 </style>

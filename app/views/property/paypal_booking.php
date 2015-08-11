@@ -119,13 +119,6 @@
             </li>
          </ul>
       </form>
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="hosted_button_id" value="QVTVNNC6YHNRU">
-        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-      </form>
-
    </div>
    <!--end of booking-info -->
    <div class="col-md-4">
@@ -163,14 +156,3 @@
         </div>         
    </div>
 </div>
-<style type="text/css">
-.summary_section{border-top:1px solid #aab2bd;}
-.summary_section td{padding-left: 0px !important;}
-#form-booking li:not(:last-child){
-  border-bottom: 1px solid #EBEBEB;
-}
-#form-booking li:nth-child(3){
-  border-bottom: none;
-}
-#form-booking .form-control{box-shadow: none;}
-</style>

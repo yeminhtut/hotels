@@ -12,145 +12,113 @@ function _country($location_id = '', $location_slug = '', $checkIn, $checkOut, $
     $persons     = $persons;
     $location_id = trim(strip_tags($location_id));    
 
-    // $foot_script = '
-    //     var time = 0;
-    //     function load_select() {
-    //             var cur_url = window.location.href;
-    //             var parse_arr = cur_url.split("/");
-    //             var destination = parse_arr[5];
-    //             var checkin = parse_arr[7];
-    //             var checkout = parse_arr[8];
-    //             var persons = parse_arr[9];
-    //             var rooms = parse_arr[10];
-    //         $.ajax({
-    //             type:"POST",
-    //             url: "http://localhost/hotels/ajax/search_hotels",                
-    //             data: {destination:destination, checkin:checkin,checkout:checkout,persons:persons,rooms:rooms},
-    //             success: function(data) {
-    //                 console.log(data.length);                    
-    //                 if(data !== "null" || data.lenght > 10){                    
-    //                     $("#avaliable-list").html(data);
-    //                 }                                              
-    //             },
-    //            complete: function() {
-    //                 var status = $("#status").html();
-    //                 if (time < 5001) {
-    //                     console.log(time);
-    //                     setTimeout(load_select, 5000);
-    //                     time = time + 5000;
-    //                 } else if (time > 5001 && status !== 1) {
-    //                     //$("#avaliable-list").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
-    //                 }
-    //             }
-    //         });
-    //     }';
-    $content['footer_script']   = $foot_script;
+    $foot_script = '
+    var time = 0;
+    var destination = "'.$location_id.'";
+    var checkin = "'.$check_in.'";
+    var checkout = "'.$check_out.'";
+    var persons = "'.$persons.'";
+    var rooms = "'.$rooms.'";
+            function load_select() {
+                    var newhtml = "";
+                    var data = {
+                                destination: destination,
+                                checkin: checkin,
+                                checkout: checkout,
+                                persons: persons,
+                                rooms: rooms
+                                };
+                    $.ajax({
+                        type: "POST",
+                        url: "/hotels/ajax/search_hotels",
+                        dataType: "json",
+                        data: data,
+                        success: function(response) {                           
+                                    var response_count = Object.keys(response).length;
+                                    var count = 0;
+                                    if (response_count > 0) {
+                                        var search_complete = response.search_completed;
+                                        var data = response.hotels;
+                                        count = Object.keys(data).length;
+                                        console.log(count);
+                                    };
+
+                                    if (count > 1) {
+                                        var j = 1;
+                                        var hotel_ids_arr = [];
+                                        $.each(data, function(i, item) {
+                                            hotel_ids_arr.push(item.id[0]);
+                                            newhtml = hotel_listing_view(j, item);
+                                            $(".hotel-list").append(newhtml);
+                                            $(".hotel-list").css("display", "block");
+                                            $("#avaliable-list").remove();
+                                            j++;
+                                        });
+                                        $("#status").html("1");
+                                        var hotel_count = j - 1;
+                                        var result_list_count = "<strong>" + hotel_count + "</strong> hotels found";
+                                        $("#results-bar").html(result_list_count);
+                                        $("#results-bar").css("display", "block");
+                                        $("#sorting_select").css("display", "block");
+                                    };
+                                },
+                                complete: function() {
+                                    var status = $("#status").html();
+                                    console.log(status);
+                                    if (status !== "1") {
+                                        console.log("need to call again");
+                                        if (time < 30001) {
+                                            console.log(time);
+                                            if (status !== 1) {};
+                                            setTimeout(load_select, 5000);
+                                            time = time + 5000;
+                                        } else if (time > 30001 && status !== 1) {
+                                            $("#avaliable-list").html("<p><center style=\"font-weight:bold;\">Sorry, no available hotels found.. change search criteria...</center></p>");
+                                        }
+                                    } else {
+                                        console.log("no need to call");
+                                        sort_by_best_deals();
+                                    };
+                                }
+                            });
+                        };
+                    function book_hotel(element){
+                        var room_key = $(element).attr("data-roomKey");
+                        var room_des = $("#" +room_key+"des").text();
+                        var price = $(element).parent().parent().attr("data-price");
+                        var hotel_id = $(element).closest( "div" ).attr("id").replace("panel","");
+                        var hotel_name = $("#" +hotel_id+"title").text();
+                        var hotel_img =   $("#" +hotel_id+"img").attr("src"); 
+                        var data = {
+                                    checkin: checkin,
+                                    checkout: checkout,
+                                    persons: persons,
+                                    rooms: rooms,
+                                    room_key: room_key,
+                                    room_des: room_des,
+                                    price: price,
+                                    hotel_id: hotel_id,
+                                    hotel_img: hotel_img,
+                                    hotel_name: hotel_name    
+                                    };
+                        
+                        $.ajax({
+                            type: "POST",
+                            url: "/hotels/ajax/insert_hotels_temp",
+                            dataType: "json",
+                            cache: false,
+                            data: data,
+                            success: function(response) {
+                                if (response > 0) {
+                                    window.location.href = "http://localhost/hotels/property/booking/"+room_key;
+                                };
+                            }
+                        });
+                    }
+    ';
+    
+    $content['foot_script']     = $foot_script;
     $data['pagename']           = $location_slug;
     $data['body'][]             = View::do_fetch(VIEW_PATH . 'destination/index.php', $content);
-    View::do_dump(VIEW_PATH . 'layouts/layout-lumen.php', $data); 
-    //Angular view//
-    // $content['footer_script']   = $foot_script;
-    // $data['pagename']           = $location_slug;
-    // $data['body'][]             = View::do_fetch(VIEW_PATH . 'destination/angular_index.php', $content);
-    // View::do_dump(VIEW_PATH . 'layouts/layout-angular.php', $data);   
-}
-
-function merge_location_avaliable($location_result,$avaliable_room_arr){
-    $result = array();
-    foreach($location_result as $values){
-        foreach($avaliable_room_arr as $values2){
-            if($values['id'] == $values2['id']){
-                $result[] = array_merge_recursive($values, $values2);
-                break;
-            }
-        }
-    }
-    return $result;
-}
-
-
-function get_avaliable_hotels_result($location_id, $rooms, $persons, $check_in, $check_out)
-{    
-    $client               = new Client();
-    $request              = $client->createRequest('GET', 'http://api.zumata.com/search');
-    $query                = $request->getQuery();
-    $query['destination'] = $location_id;
-    $query['checkin']     = str_replace('%2F', '/', $check_in);
-    $query['checkout']    = str_replace('%2F', '/', $check_out);
-    $query['lang']        = 'en_US';
-    $query['rooms']       = $rooms;
-    $query['adults']      = $persons;
-    $query['currency']    = 'SGD';
-    $query['timeout']     = rand(1, 10);
-    $query['api_key']     = 'rEnlPVvPD6V87RstUqEeoFjaQZt5GnFbNFxwyi2P';
-    $response             = $client->get($request->getUrl());
-    $result               = $response->json();
-    return $result;
-}
-
-function make_avaliable_room_html($hotel_rooms)
-{
-    $html = '';
-    $html  .= '<ul class="hotel-list">';
-        foreach ($hotel_rooms as $hotel) {
-        $name = $hotel['name'];
-        $address = $hotel['address'];
-        $id = $hotel['id'][0];
-        $thumbnail = make_hotel_thumb($hotel['image_details']);
-        $cheapest_price = $hotel['rates']['packages'][0]['roomRate'];
-        
-        $html .= '<li class="hotel-row" data-price='.$cheapest_price.'>
-                    <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0px;">
-                         <div class="img_list">
-                            <a href=""><img width="180" height="120" src="'.$thumbnail.'" onerror="imgError(this);"></a>
-                        </div>
-                    </div>   
-                   <div class="col-lg-6 col-md-6 col-sm-6">
-                      <div class="rooms_list_desc">
-                         <h3 class="link-title">'.$name.'</h3>
-                         <span class="glyphicon glyphicon-map-marker"></span><span>'.$address.'</span>
-                      </div>
-                   </div>
-                   <div class="col-lg-2 col-md-2 col-sm-2 ">
-                      <div class="price_list">
-                        
-                            <sup>SGD</sup>'.$cheapest_price.'<small>/Per night</small>
-                            <p>
-                               <a href="" target="_blank" class="btn green-btn">Details</a>
-                            </p>
-                        
-                      </div>
-                   </div>
-                   <div class="clear"></div>
-                </li>
-        ';
-    }
-    $html  .= '</ul>';
-    return $html;
-
-}
-
-
-
-function make_hotel_thumb($image_details){    
-    $count      = $image_details['count'];    
-    $prefix     = $image_details['prefix'];
-    $suffix     = $image_details['suffix'];
-    $image_name = rand(1, $count);
-    $image_name = 1;
-    $src        = $prefix . '/' . $image_name . $suffix;    
-    return $src;
-}
-
-/*from db*/
-function make_hotel_thumb_db($image_arr)
-{
-    $image_arr = unserialize($image_arr);    
-    $count      = $image_arr['count'];    
-    $prefix     = $image_arr['prefix'];
-    $suffix     = $image_arr['suffix'];
-    $image_name = rand(1, $count);
-    $image_name = 1;
-    $src        = $prefix . '/' . $image_name . $suffix;    
-    return $src;
+    View::do_dump(VIEW_PATH . 'layouts/layout-lumen.php', $data);      
 }

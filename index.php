@@ -17,44 +17,21 @@ define('APP_PATH','app/'); //with trailing slash pls
 define('WEB_FOLDER','/hotels'); //with trailing slash pls
 define('VIEW_PATH',APP_PATH.'views/'); //with trailing slash pls
 define('WEB_DOMAIN','http://'.$_SERVER['HTTP_HOST']); //with http:// and NO trailing slash pls
-define('TN_PATH','http://tripzilla.sg/tn/'); //with trailing slash pls
-define('FILES_PATH','http://tripzilla.sg/files/'); //with trailing slash pls
+define('FILES_PATH',''); //with trailing slash pls
 define('IMG_PATH','/img/'); //with trailing slash pls
 
 define('SITE_TEMPLATE','sg');
 define('SITE_COUNTRY','Singapore');
 define('CURRENCY_CODE','SGD');
 define('CUR_SYMBOL','$');
-define('AGODA_CID','1508936');
-define('LATEROOMS_ID','13271');
+
 
 //===============================================
 // Other Settings
 //===============================================
 $GLOBALS['sitename']='Tripzilla';
-$GLOBALS['article_categories'] = array(
-  'upcoming travel fair' => 'Upcoming Travel Fair',
-  'travel fair' => 'Travel Fair',  
-  'past travel fair' => 'Past Travel Fair',
-  'tips' => 'Tips',
-  'cruise' => 'Cruise',
-  'insurance' => 'Insurance',
-  'where to go' => 'Where to Go'
-);
-
-$GLOBALS['tour_types'] = array(
-	'free_and_easy' => 'Free & Easy',
-	'group_tour' => 'Group Tour',
-	'land_tour' => 'Land Tour',
-	'cruise' => 'Cruise'
-);
 
 $GLOBALS['pagination']['per_page'] = 10;
-
-//Twitter config
-define('CONSUMER_KEY', 'Dgyi9JT3c8RHoxxssWxiUg');
-define('CONSUMER_SECRET', 'UdhYxCiD5YXpTVCvcdbfDmbuUS9Brvw64umNVKCXaY');
-define('OAUTH_CALLBACK', 'http://tourpackages.com.sg/twitteroauth/callback/');
 
 //===============================================
 // Includes
